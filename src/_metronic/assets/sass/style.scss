@@ -1,0 +1,17 @@
+//
+// Theme style
+//
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Initialize
+@import 'init';
+
+// Components
+@import './core/components/components';
+@import 'components/components';
+
+// Layout
+@import 'layout/layout';
