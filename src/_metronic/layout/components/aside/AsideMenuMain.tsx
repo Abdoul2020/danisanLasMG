@@ -9,8 +9,6 @@ export function AsideMenuMain() {
 
   return (
     <>
-
-
       <AsideMenuItem
         to='/dashboard'
         icon='black-right'

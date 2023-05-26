@@ -30,6 +30,7 @@ const AbdouWidget: React.FC<Props> = ({ className }) => {
 		Biyografi: ['Abdoul', false],
 		Akademik_Bilgileri: ['gazi-uni', false],
 		Deneyimler: ['FullStack Developer', false],
+		Ekstra_Bilgiler: ["Ekol",false]
 	});
 
 

@@ -16,7 +16,8 @@ import { Turkish } from 'flatpickr/dist/l10n/tr.js';
 //import CustomInput from './CustomInput'
 //import Tagify from '@yaireo/tagify';
 import MetronicTagify from './TagifyInput'
-import MetronicTagifyPrivate from "./TagifyOzelData"
+import MetronicTagifyPrivate from "./TagifyOzelData";
+import DropdownWithoutSearch from './DropdownWithoutSearch'
 
 
 
@@ -343,6 +344,35 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
 
 
+    ///options to choose
+    const options = ["Option 1", "Option 2", "Option 3"]; // example options
+    const KMolaSure = ["5", "10", "15", "20", "25", "30"]
+    const RdevSure = ["10", "15", "20", "25", "30", "35", "40", "50", "60", "90", "120"]
+
+    //date update from child data
+    const [kMolaUpdate, setKMolaUpdate] = useState("no update");
+    const [RdevSureUpdate, setRdevSureUpdate] = useState("no update yet");
+
+    useEffect(() => {
+        
+        console.log("kisaMola",kMolaUpdate )
+
+    }, [kMolaUpdate])
+    
+
+
+    const handleKmola = (dataFromChild: any) => {
+
+        setKMolaUpdate(dataFromChild);
+
+    }
+
+    const handleRdevSure = (dataFromChild: any) => {
+
+        setRdevSureUpdate(dataFromChild);
+
+    }
+
 
 
 
@@ -481,14 +511,10 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                                         <div className='mt-3'>
 
 
-                                            <select name="country" value={breakTimeToChoose} onChange={handleBreakTime} aria-label="Select a Country" data-control="select2" data-placeholder="Select a country..." className="form-select form-select-solid form-select-lg fw-semibold">
-                                                <option value="5">5 Dakika</option>
-                                                <option value="10">10 Dakika</option>
-                                                <option value="15">15 Dakika</option>
-                                                <option value="20">20 Dakika</option>
-                                                <option value="25">25 Dakika</option>
-                                                <option value="30">30 Dakika</option>
-                                            </select>
+
+                                            <DropdownWithoutSearch options={KMolaSure} updateData={handleKmola} />
+
+
 
 
 
@@ -505,19 +531,10 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                                         </div>
 
                                         <div className='mt-3'>
-                                            <select name="country" aria-label="Select a Country" value={randevuSaatToChoose} onChange={handleRandevuTime} data-control="select2" data-placeholder="Select a country..." className="form-select form-select-solid form-select-lg fw-semibold">
-                                                <option value="10">10 Dakika</option>
-                                                <option value="15">15 Dakika</option>
-                                                <option value="10">20 Dakika</option>
-                                                <option value="25">25 Dakika</option>
-                                                <option value="30">30 Dakika</option>
-                                                <option value="35">35 Dakika</option>
-                                                <option value="40">40 Dakika</option>
-                                                <option value="50">50 Dakika</option>
-                                                <option value="60">60 Dakika</option>
-                                                <option value="90">90 Dakika</option>
-                                                <option value="120">120 Dakika</option>
-                                            </select>
+
+                                            <DropdownWithoutSearch options={RdevSure} updateData={handleRdevSure} />
+
+
                                         </div>
                                     </div>
 
@@ -568,9 +585,6 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                                             suggestions={filteredSuggestions}
 
                                         /> */}
-
-
-
                                     </div>
 
                                 </div>
@@ -589,18 +603,7 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
                                         <div className='mt-3'>
 
-
-                                            <select name="country" aria-label="Select a Country" data-control="select2" data-placeholder="Select a country..." className="form-select form-select-solid form-select-lg fw-semibold">
-                                                <option value="">5 Dakika</option>
-                                                <option value="">10 Dakika</option>
-                                                <option value="">15 Dakika</option>
-                                                <option value="">20 Dakika</option>
-                                                <option value="">25 Dakika</option>
-                                                <option value="">30 Dakika</option>
-                                            </select>
-
-
-
+                                            <DropdownWithoutSearch options={KMolaSure} updateData={handleKmola} />
                                         </div>
 
                                     </div>
@@ -616,20 +619,10 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                                         </div>
 
                                         <div className='mt-3'>
-                                            <select name="country" aria-label="Select a Country" data-control="select2" data-placeholder="Select a country..." className="form-select form-select-solid form-select-lg fw-semibold">
-                                                <option value="">10 Dakika</option>
-                                                <option value="">15 Dakika</option>
-                                                <option value="">20 Dakika</option>
-                                                <option value="">25 Dakika</option>
-                                                <option value="">30 Dakika</option>
-                                                <option value="">35 Dakika</option>
-                                                <option value="">40 Dakika</option>
-                                                <option value="">50 Dakika</option>
-                                                <option value="">60 Dakika</option>
-                                                <option value="">90 Dakika</option>
-                                                <option value="">120 Dakika</option>
 
-                                            </select>
+                                            <DropdownWithoutSearch options={RdevSure} updateData={handleRdevSure} />
+
+
                                         </div>
                                     </div>
                                 </div>

@@ -3,24 +3,19 @@
 @tailwind utilities;
 
 
-.rc-time-picker-input{
-    /* background-color: #f9f9f9 !important;
-    border-color: #f9f9f9 !important;
-    color: #5e6278 !important;
-    transition: color 0.2s ease !important;
-    min-height: calc(1.5em + 1.65rem + 2px) !important;
-    padding: 0.825rem 1.5rem !important;
-    font-size: 1.15rem !important;
-    border-radius: 0.85rem !important; */
-
+.custom-dropdown-menu {
+    position: static;
+    transform: none !important;
 }
-/* .css-13cymwt-control{
-    background-color: black !important;
-} */
 
+.icon-hovered {
+    transition: all 0.3s ease;
+    opacity: 0;
+  }
+  
+  .hovered .icon-hovered {
 
-.my-react-crop {
-    /* width: 300px !important;
-    height: 300px !important; */
+    opacity: 1;
+    
   }
   

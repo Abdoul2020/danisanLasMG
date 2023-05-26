@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+//@ts-ignore
 import Tagify from '@yaireo/tagify';
 import '@yaireo/tagify/dist/tagify.css'; // Import Tagify CSS for default styling
 

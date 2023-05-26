@@ -27,6 +27,8 @@ const DefaultTitle = () => {
       )}
       {/* end::Heading */}
 
+
+
       {pageBreadcrumbs &&
         pageBreadcrumbs.length > 0 &&
         config.pageTitle &&

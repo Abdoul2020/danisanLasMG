@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import {FC} from 'react'
-import {toAbsoluteUrl} from '../../../helpers'
-import {useLang, setLanguage} from '../../../i18n/Metronici18n'
+import { FC } from 'react'
+import { toAbsoluteUrl } from '../../../helpers'
+import { useLang, setLanguage } from '../../../i18n/Metronici18n'
 
 const languages = [
   {
@@ -11,37 +11,42 @@ const languages = [
     flag: toAbsoluteUrl('/media/flags/united-states.svg'),
   },
   {
-    lang: 'zh',
-    name: 'Mandarin',
-    flag: toAbsoluteUrl('/media/flags/china.svg'),
+    lang: 'tr',
+    name: 'Turkish',
+    flag: toAbsoluteUrl('/media/flags/turkey.svg'),
   },
-  {
-    lang: 'es',
-    name: 'Spanish',
-    flag: toAbsoluteUrl('/media/flags/spain.svg'),
-  },
-  {
-    lang: 'ja',
-    name: 'Japanese',
-    flag: toAbsoluteUrl('/media/flags/japan.svg'),
-  },
-  {
-    lang: 'de',
-    name: 'German',
-    flag: toAbsoluteUrl('/media/flags/germany.svg'),
-  },
-  {
-    lang: 'fr',
-    name: 'French',
-    flag: toAbsoluteUrl('/media/flags/france.svg'),
-  },
+  // {
+  //   lang: 'zh',
+  //   name: 'Mandarin',
+  //   flag: toAbsoluteUrl('/media/flags/china.svg'),
+  // },
+  // {
+  //   lang: 'es',
+  //   name: 'Spanish',
+  //   flag: toAbsoluteUrl('/media/flags/spain.svg'),
+  // },
+  // {
+  //   lang: 'ja',
+  //   name: 'Japanese',
+  //   flag: toAbsoluteUrl('/media/flags/japan.svg'),
+  // },
+  // {
+  //   lang: 'de',
+  //   name: 'German',
+  //   flag: toAbsoluteUrl('/media/flags/germany.svg'),
+  // },
+  // {
+  //   lang: 'fr',
+  //   name: 'French',
+  //   flag: toAbsoluteUrl('/media/flags/france.svg'),
+  // },
 ]
 
 type Props = {
   languageMenuPlacement?: 'lert-start' | 'right-end'
 }
 
-const Languages: FC<Props> = ({languageMenuPlacement = 'lert-start'}) => {
+const Languages: FC<Props> = ({ languageMenuPlacement = 'lert-start' }) => {
   const lang = useLang()
   const currentLanguage = languages.find((x) => x.lang === lang)
   return (
@@ -76,7 +81,7 @@ const Languages: FC<Props> = ({languageMenuPlacement = 'lert-start'}) => {
           >
             <a
               href='#'
-              className={clsx('menu-link d-flex px-5', {active: l.lang === currentLanguage?.lang})}
+              className={clsx('menu-link d-flex px-5', { active: l.lang === currentLanguage?.lang })}
             >
               <span className='symbol symbol-20px me-4'>
                 <img className='rounded-1' src={l.flag} alt='metronic' />
@@ -90,4 +95,4 @@ const Languages: FC<Props> = ({languageMenuPlacement = 'lert-start'}) => {
   )
 }
 
-export {Languages}
+export { Languages }

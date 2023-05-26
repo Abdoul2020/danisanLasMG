@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
+// @ts-ignore
 import Tagify from '@yaireo/tagify';
 import '@yaireo/tagify/dist/tagify.css'; // Import Tagify CSS for default styling
+
 
 
 
@@ -16,14 +18,12 @@ type Props = {
 const MetronicTagify:React.FC<Props>  = ({ value, onChange, suggestions  }) => {
 
 
-
   // const handleChangeZaman = (event:any) => {
 
   //   const data = event.target.value;
   //   console.log("arrayType", data)
   //   console.log('array?', Array.isArray(data));
   //   console.log('TypeGhere', typeof data);
-
   //   handleDatafromUpdateZaman(data);
 
   // };

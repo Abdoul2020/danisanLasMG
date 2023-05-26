@@ -4,12 +4,16 @@ import {I18nProvider} from '../_metronic/i18n/i18nProvider'
 import {LayoutProvider, LayoutSplashScreen} from '../_metronic/layout/core'
 import {MasterInit} from '../_metronic/layout/MasterInit'
 import {AuthInit} from './modules/auth'
+import { ToastContainer } from "react-toastify";
+
 
 // redux toolkit send
+//@ts-ignore
 import { Provider } from 'react-redux'
 import {store} from "../service/store"
 import {useNavigate} from 'react-router-dom';
 import jwtDecode from "jwt-decode"; //jwt time install to calculate user login time
+//@ts-ignore
 import axios from "axios";
 
 
@@ -66,9 +70,9 @@ const App = () => {
         <LayoutProvider>
           <AuthInit>
             <Provider store={store}>
-
             <Outlet />
             <MasterInit />
+            <ToastContainer />
             </Provider>
           </AuthInit>
         </LayoutProvider>

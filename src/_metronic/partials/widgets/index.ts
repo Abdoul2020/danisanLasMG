@@ -14,6 +14,8 @@ export * from "./feeds/MetronicDatePicker"
 export * from "./feeds/FeedsWidget9"
 export * from "./feeds/MetronicCropModal"
 export * from "./feeds/TagifyOzelData"
+export * from "./feeds/SocialAllList"
+export * from  "./feeds/Select2Country"
 
 
 // mixed

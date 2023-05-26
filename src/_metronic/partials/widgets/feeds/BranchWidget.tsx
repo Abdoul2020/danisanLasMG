@@ -6,6 +6,8 @@ import { Dropdown1 } from '../../content/dropdown/Dropdown1'
 import Select, { components, MultiValueGenericProps, MultiValueProps, OnChangeValue, Props, } from 'react-select'
 import { SortableContainer, SortableContainerProps, SortableElement, SortEndHandler, SortableHandle, } from 'react-sortable-hoc';
 import { ColourOption, colourOptions } from '../../../../service/util/data';
+import DropdownComponent from './DrodownComponent';
+import DropdownWithoutSearch from './DropdownWithoutSearch';
 
 import MetronicTagify from './TagifyInput'
 
@@ -101,6 +103,25 @@ const BranchWidget: React.FC<Propss> = ({ className }) => {
 
 
 
+    //optionsTOcHOOSE
+    const options = ["Option 1", "Option 2", "Option 3"]; // example options
+    const optionsUnvan= ["Electronics","Ekol","Yutube"]
+
+
+    const [unvanUpdateChange, setUnvanUpdateChange]=useState("nochangeYet");
+    const [uzmanUpdateChange, setUzmanUpdateChange]=useState("nochangeYet");
+
+
+
+    const handleDataUnvan = (dataFromChild:any) => {
+        setUnvanUpdateChange(dataFromChild);
+    }
+    const handleDataUzman = (dataFromChild:any) => {
+        setUzmanUpdateChange(dataFromChild);
+    }
+
+
+
 
 
     return (
@@ -117,13 +138,17 @@ const BranchWidget: React.FC<Propss> = ({ className }) => {
                     </div>
 
                     <div className='card-header' style={{borderBottom:"none"}}>
-                        {/* <MetronicTagify
+
+                        <MetronicTagify
                             value={tags}
                             onChange={handleTagChange}
                             suggestions={suggestions}
 
-                        /> */}
+                        />
+                        
                         {/* <p>Selected tags: {tags.join(', ')}</p> */}
+
+                        {/* <DropdownComponent options={options}/> */}
                         
                         <div className="text-muted fs-7">Branşınız seçiniz</div>
                     </div>
@@ -146,13 +171,9 @@ const BranchWidget: React.FC<Propss> = ({ className }) => {
                             <div className="card card-flush pt-0">
                                 <div className="card-body pt-0">
 
-                                    <select className="form-select mb-2 form-control form-control-lg form-control-solid" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_category_store_template">
-                                        <option></option>
-                                        <option value="default" >Default template</option>
-                                        <option value="electronics">Electronics</option>
-                                        <option value="office">Office stationary</option>
-                                        <option value="fashion">Fashion</option>
-                                    </select>
+                                <DropdownWithoutSearch options={optionsUnvan}  updateData={handleDataUnvan}/>
+
+
                                     <div className="text-muted fs-7"> Ünvanınız.</div>
                                 </div>
 
@@ -175,13 +196,7 @@ const BranchWidget: React.FC<Propss> = ({ className }) => {
                                 </div>
                                 <div className="card-body pt-0">
 
-                                    <select className="form-select mb-2 form-control form-control-lg form-control-solid" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_category_store_template">
-                                        <option></option>
-                                        <option value="default" >Default template</option>
-                                        <option value="electronics">Electronics</option>
-                                        <option value="office">Office stationary</option>
-                                        <option value="fashion">Fashion</option>
-                                    </select>
+                                <DropdownWithoutSearch options={options}  updateData={handleDataUzman}/>
                                     <div className="text-muted fs-7">Uzmanlık alanı seçiniz.</div>
                                 </div>
                             </div>
@@ -192,11 +207,7 @@ const BranchWidget: React.FC<Propss> = ({ className }) => {
 
                 </div>
 
-
             </div>
-
-
-
             {/* konsole daccord */}
 
 

@@ -26,6 +26,7 @@ const AsideMenuItemWithSub: React.FC<Props & WithChildren> = ({
   const {aside} = config
 
   return (
+
     <div
       className={clsx('menu-item hidden', {'here show': isActive}, 'menu-accordion')}
       data-kt-menu-trigger='click'
@@ -50,6 +51,7 @@ const AsideMenuItemWithSub: React.FC<Props & WithChildren> = ({
         {children}
       </div>
     </div>
+    
   )
 }
 

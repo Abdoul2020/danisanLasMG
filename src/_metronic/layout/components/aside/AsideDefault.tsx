@@ -32,6 +32,8 @@ const AsideDefault = () => {
       data-kt-drawer-width="{default:'200px', '300px': '250px'}"
       data-kt-drawer-direction='start'
       data-kt-drawer-toggle='#kt_aside_toggle'
+
+      
     >
       {/* begin::Brand */}
       <div className='aside-logo flex-column-auto px-9 mb-9' id='kt_aside_logo'>
@@ -57,7 +59,6 @@ const AsideDefault = () => {
         {/* end::Logo */}
       </div>
       {/* end::Brand */}
-
       {/* begin::Aside menu */}
       <div id='kt_aside_menu' className='aside-menu flex-column-fluid ps-5 pe-3 mb-9'>
         <AsideMenu asideMenuCSSClasses={classes.asideMenu} />
@@ -66,7 +67,9 @@ const AsideDefault = () => {
 
       {/* begin::Footer */}
       <div className='aside-footer flex-column-auto px-9' id='kt_aside_footer'>
+
         <AsideUserMenu    userData={userData} />
+
       </div>
       {/* end::Footer */}
     </div>

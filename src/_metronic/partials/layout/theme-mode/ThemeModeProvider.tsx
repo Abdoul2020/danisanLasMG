@@ -70,17 +70,20 @@ const ThemeModeProvider = ({children}: {children: React.ReactNode}) => {
     }
 
     if (saveInLocalStorage) {
+
       const updatedMode = _mode === 'system' ? systemMode : _mode
       document.documentElement.setAttribute('data-bs-theme', updatedMode)
+
     }
     ThemeModeComponent.init()
   }
 
   const updateMenuMode = (_menuMode: ThemeModeType, saveInLocalStorage: boolean = true) => {
     setMenuMode(_menuMode)
-    if (saveInLocalStorage && localStorage) {
+    if (saveInLocalStorage && localStorage){
       localStorage.setItem(themeMenuModeLSKey, _menuMode)
     }
+
   }
 
   useEffect(() => {
