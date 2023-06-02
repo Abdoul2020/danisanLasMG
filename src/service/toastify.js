@@ -12,4 +12,5 @@ function handleResponeMessage(message) {
     else if (message === "auth/email-alread-in-use") return "Bu kullanici zaten mevcut";
     else if (message === "auth/wrong-password" || message === "auth/user-not-found") return "Mail ve Sifrenizi Kontrol Ediniz";
     else return message;
+    
 }

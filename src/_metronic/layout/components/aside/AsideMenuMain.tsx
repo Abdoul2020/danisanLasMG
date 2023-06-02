@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-target-blank */
-import {useIntl} from 'react-intl'
-import {KTIcon} from '../../../helpers'
-import {AsideMenuItemWithSub} from './AsideMenuItemWithSub'
-import {AsideMenuItem} from './AsideMenuItem'
+import { useIntl } from 'react-intl'
+import { KTIcon } from '../../../helpers'
+import { AsideMenuItemWithSub } from './AsideMenuItemWithSub'
+import { AsideMenuItem } from './AsideMenuItem'
 
 export function AsideMenuMain() {
   const intl = useIntl()
@@ -12,12 +12,21 @@ export function AsideMenuMain() {
       <AsideMenuItem
         to='/dashboard'
         icon='black-right'
-        title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
+        title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
         fontIcon='bi-app-indicator'
       />
 
-      <AsideMenuItem to='/builder' icon='black-right' title='Layout Builder' fontIcon='bi-layers' />
-      <div className='menu-item hidden'>
+      <AsideMenuItem to='/builder' icon='black-right'
+        title={intl.formatMessage({ id: 'MENU.PAYMENT' })}
+        fontIcon='bi-layers' />
+
+      <AsideMenuItem to='/builder' icon='black-right'
+        title={intl.formatMessage({ id: 'MENU.MYCARD' })}
+        fontIcon='bi-layers' />
+
+
+
+      <div className='menu-item '>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
         </div>
@@ -61,7 +70,7 @@ export function AsideMenuMain() {
       <AsideMenuItemWithSub to='/error' title='Errors' fontIcon='bi-sticky' icon='black-right'>
         <AsideMenuItem to='/error/404' title='Error 404' hasBullet={true} />
         <AsideMenuItem to='/error/500' title='Error 500' hasBullet={true} />
-        
+
       </AsideMenuItemWithSub>
       <AsideMenuItemWithSub
         to='/crafted/widgets'
@@ -76,7 +85,7 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/crafted/widgets/tables' title='Tables' hasBullet={true} />
         <AsideMenuItem to='/crafted/widgets/feeds' title='Feeds' hasBullet={true} />
       </AsideMenuItemWithSub>
-      <div className='menu-item hidden'>
+      <div className='menu-item '>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Apps</span>
         </div>
@@ -92,12 +101,16 @@ export function AsideMenuMain() {
         title='User management'
         fontIcon='bi-layers'
       />
-      <div className='menu-item'>
+
+
+      <div className='menu-item '>
         <div className='menu-content'>
           <div className='separator mx-1 my-4'></div>
         </div>
       </div>
-      <div className='menu-item hidden'>
+
+
+      <div className='menu-item '>
         <a
           target='_blank'
           className='menu-link'
@@ -109,6 +122,8 @@ export function AsideMenuMain() {
           <span className='menu-title'>Changelog {process.env.REACT_APP_VERSION}</span>
         </a>
       </div>
+
+
     </>
   )
 }

@@ -15,18 +15,14 @@ type Props = {
 const MetronicTagifyPrivate:React.FC<Props>  = ({ value, onChange, suggestions }) => {
 
 
+  console.log("wellFuuo", suggestions)
 
-    useEffect(() => {
 
-    console.log("whateyu", value)
-
-    }, [value])
-    
-
-    
-  const inputRef = useRef(null);
 
   useEffect(() => {
+
+    console.log("alwaysHerer",suggestions)
+
     if (inputRef.current) {
       const tagify = new Tagify(inputRef.current, {
         // Tagify configuration options go here
@@ -60,6 +56,28 @@ const MetronicTagifyPrivate:React.FC<Props>  = ({ value, onChange, suggestions }
 
     }
 
+
+  }, [suggestions])
+  
+
+
+
+    useEffect(() => {
+
+    console.log("whateyu", value)
+
+    }, [value])
+    
+
+    
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+
+   
+
+
+    console.log("actuallyChangeW", suggestions)
     
   }, []);
 

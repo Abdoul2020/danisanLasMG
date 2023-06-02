@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {Link, useNavigate} from 'react-router-dom'
-import {useAuth} from '../../../../app/modules/auth'
-import {toAbsoluteUrl} from '../../../helpers'
-import {Languages} from '../header-menus/Languages'
-import {HiBadgeCheck} from  "react-icons/hi"
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../../app/modules/auth'
+import { toAbsoluteUrl } from '../../../helpers'
+import { Languages } from '../header-menus/Languages'
+import { HiBadgeCheck } from "react-icons/hi"
 import { useSelector, useDispatch } from "react-redux";
-import type {AppDispatch, RootState } from '../../../../service/store';
+import type { AppDispatch, RootState } from '../../../../service/store';
+import { useIntl } from 'react-intl'
+
+
 
 
 
@@ -18,20 +21,24 @@ const UserMenu = () => {
 
 
   const navigate = useNavigate();
-  const profileImage= useSelector((state:any)=>state.user_ExpertSlice.pro_base64);
+  const profileImage = useSelector((state: any) => state.user_ExpertSlice.pro_base64);
 
 
 
-  const {currentUser, logout} = useAuth()
+  const { currentUser, logout } = useAuth()
 
 
-  function logout_Expert(e:any){
+  function logout_Expert(e: any) {
 
     e.preventDefault();
     localStorage.removeItem("AElog");
-    window.location.href="/auth/login"
+    window.location.href = "/auth/login"
     // navigate("/auth/login");
   }
+
+
+  //langugage 
+  const intl = useIntl()
 
 
 
@@ -49,7 +56,7 @@ const UserMenu = () => {
         <div className='menu-content d-flex align-items-center px-3'>
           {/* begin::Avatar */}
           <div className='symbol symbol-50px me-5'>
-            <img alt='Logo' src={toAbsoluteUrl(`data:image/png;base64,${profileImage && profileImage!==null && profileImage}`)} />
+            <img alt='Logo' src={toAbsoluteUrl(`data:image/png;base64,${profileImage && profileImage !== null && profileImage}`)} />
           </div>
           {/* end::Avatar */}
 
@@ -59,7 +66,7 @@ const UserMenu = () => {
               {currentUser?.first_name} {currentUser?.last_name}
               <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>
 
-                <HiBadgeCheck/>
+                <HiBadgeCheck />
 
 
               </span>
@@ -80,15 +87,11 @@ const UserMenu = () => {
       {/* begin::Menu item */}
       <div className='menu-item px-5'>
         <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
-
-        Profil
-
+          {intl.formatMessage({ id: 'USER.MENU.SIDEBAR.PROFIL' })}
         </Link>
       </div>
       {/* end::Menu item */}
 
-     
-     
 
       {/* begin::Menu separator */}
 
@@ -101,19 +104,23 @@ const UserMenu = () => {
       {/* begin::Menu item */}
       <div className='menu-item px-5 my-1'>
         <a href='#' className='menu-link px-5'>
-          Hesap Ayarı
+          {/* Hesap Ayarı */}
+
+          {intl.formatMessage({ id: 'USER.MENU.SIDEBAR.SETTING' })}
+
+
         </a>
       </div>
       {/* end::Menu item */}
 
       {/* begin::Menu item */}
-      <div className='menu-item px-5' onClick={(e)=>logout_Expert(e)}>
+      <div className='menu-item px-5' onClick={(e) => logout_Expert(e)}>
         <a onClick={logout} className='menu-link px-5'>
-          Çıkış Yap
+          {intl.formatMessage({ id: 'USER.MENU.SIDEBAR.LOGOUT' })}
         </a>
       </div>
     </div>
   )
 }
 
-export {UserMenu}
+export { UserMenu }

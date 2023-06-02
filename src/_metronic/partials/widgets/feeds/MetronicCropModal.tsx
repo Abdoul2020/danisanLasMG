@@ -39,11 +39,6 @@ type Props = {
 const MetronicModal: React.FC<Props> = ({ e, onReceiveData, handleDataToImage }) => {
 
 
-    console.log("frrtt",onReceiveData )
-
-
-    console.log("tahhuu", e)
-
     const [imgSrc, setImgSrc] = useState('')
     const previewCanvasRef = useRef<HTMLCanvasElement>(null)
     const imgRef = useRef<HTMLImageElement>(null)

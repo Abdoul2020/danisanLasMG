@@ -3,18 +3,22 @@ import clsx from 'clsx'
 import { FC } from 'react'
 import { toAbsoluteUrl } from '../../../helpers'
 import { useLang, setLanguage } from '../../../i18n/Metronici18n'
+import {useIntl} from 'react-intl'
+
 
 const languages = [
-  {
-    lang: 'en',
-    name: 'English',
-    flag: toAbsoluteUrl('/media/flags/united-states.svg'),
-  },
+
   {
     lang: 'tr',
     name: 'Turkish',
     flag: toAbsoluteUrl('/media/flags/turkey.svg'),
   },
+  {
+    lang: 'en',
+    name: 'English',
+    flag: toAbsoluteUrl('/media/flags/united-states.svg'),
+  },
+
   // {
   //   lang: 'zh',
   //   name: 'Mandarin',
@@ -49,6 +53,10 @@ type Props = {
 const Languages: FC<Props> = ({ languageMenuPlacement = 'lert-start' }) => {
   const lang = useLang()
   const currentLanguage = languages.find((x) => x.lang === lang)
+
+  //langugage 
+  const intl = useIntl()
+
   return (
     <div
       className='menu-item px-5'
@@ -58,7 +66,7 @@ const Languages: FC<Props> = ({ languageMenuPlacement = 'lert-start' }) => {
     >
       <a href='#' className='menu-link px-5'>
         <span className='menu-title position-relative'>
-          Diller
+        {intl.formatMessage({id: 'USER.MENU.SIDEBAR.LANG'})}
           <span className='fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0'>
             {currentLanguage?.name}{' '}
             <img
@@ -70,13 +78,14 @@ const Languages: FC<Props> = ({ languageMenuPlacement = 'lert-start' }) => {
         </span>
       </a>
 
+      {/* flag display from it */}
       <div className='menu-sub menu-sub-dropdown w-175px py-4'>
         {languages.map((l) => (
           <div
             className='menu-item px-3'
             key={l.lang}
-            onClick={() => {
-              setLanguage(l.lang)
+            onClick={(e) => {
+              setLanguage(l.lang);
             }}
           >
             <a
@@ -91,6 +100,8 @@ const Languages: FC<Props> = ({ languageMenuPlacement = 'lert-start' }) => {
           </div>
         ))}
       </div>
+
+
     </div>
   )
 }

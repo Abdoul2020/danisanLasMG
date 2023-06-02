@@ -13,11 +13,14 @@ import { Turkish } from 'flatpickr/dist/l10n/tr.js';
 // import Tagify from "@yaireo/tagify";
 // import '@yaireo/tagify/dist/tagify.css';
 
+import FlatpickrInput from './FlatpickrInput'
+
 //import CustomInput from './CustomInput'
 //import Tagify from '@yaireo/tagify';
 import MetronicTagify from './TagifyInput'
 import MetronicTagifyPrivate from "./TagifyOzelData";
 import DropdownWithoutSearch from './DropdownWithoutSearch'
+import {toastify} from "../../../../service/toastify"
 
 
 
@@ -40,6 +43,8 @@ type Propss = {
 
 }
 
+type Suggestions = string[];
+
 type User = {
     value: string;
     name: string;
@@ -48,15 +53,7 @@ type User = {
 };
 
 
-const suggestions = [
-    'Pazartesi',
-    'Salı',
-    'Çarşamba',
-    'Perşembe',
-    'Cuma',
-    'Cumartesi',
-    'Pazar',
-];
+
 
 
 
@@ -74,18 +71,15 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
 
 
-
-
-
-    // days Check control for input
-    const [firstSugestion, setfirstSugestion] = useState(['Pazartesi',
+    const [suggestions, setSuggestions] = useState<Suggestions>([
+        'Pazartesi',
         'Salı',
         'Çarşamba',
         'Perşembe',
         'Cuma',
         'Cumartesi',
-        'Pazar',]);
-
+        'Pazar',
+    ]);
 
 
 
@@ -189,10 +183,6 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
         // always chaeck sugestions arrays from here
 
-
-
-
-
     }, []);
 
 
@@ -229,14 +219,10 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
         { id: 'kt_datepicker_4', label: 'Mola bitişi', value: "" },
     ]);
 
-    useEffect(() => {
-        console.log("whatgy", datePickerElements)
-    }, [datePickerElements])
-
-
 
     // datePickerElement choose for change
     const handleInputChange = (index: any) => (event: any) => {
+
         const newDatePickerElements = [...datePickerElements];
         newDatePickerElements[index].value = event.target.value;
         setDatePickerElements(newDatePickerElements);
@@ -267,47 +253,131 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
 
 
-    const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-
-
-    useEffect(() => {
-        console.log("ekolko", filteredSuggestions)
-    }, [filteredSuggestions])
+    const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>(suggestions);
+    const [filteredZamanDays, setFilteredZamanDays] = useState<string[]>(suggestions);
 
 
 
 
     // new Tagify to be use
     const [tags, setTags] = useState([]);
-    const [tagsPrivate, settagsPrivate] = useState([]);
+    const [tagsPrivate, settagsPrivate] = useState<any>([]);
     const [newSugestion, setNewSugestion] = useState([])
 
-    const [objectArrayyy, setObjectArrayyy] = useState([]);
+    const [objectArrayyy, setObjectArrayyy] = useState<any>([]);
+    const [objectArrayZaman, setObjectArrayZaman] = useState<any>([]);
+
+
+
+
 
     useEffect(() => {
-        console.log("wess", objectArrayyy)
+
+        console.log("AvailableArray", objectArrayyy)
+
+        if (objectArrayyy.length > 0) {
+
+            let array2: any = JSON.parse(objectArrayyy);
+
+            let array2Values: string[] = array2.map((obj: any) => obj.value);
+
+            const filteredSuggestionsTosend: any = suggestions.filter((suggestion) => !array2Values.includes(suggestion));
+
+            setFilteredSuggestions(filteredSuggestionsTosend);
+
+        }
+
     }, [objectArrayyy])
 
 
+
     useEffect(() => {
 
-        // Parse norm array with error checking
+
+        if (objectArrayZaman.length > 0) {
+
+            let array2: any = JSON.parse(objectArrayZaman);
+
+            let array2Values: string[] = array2.map((obj: any) => obj.value);
+
+            const filteredSuggestionsTosend: any = suggestions.filter((suggestion) => !array2Values.includes(suggestion));
+
+            setFilteredZamanDays(filteredSuggestionsTosend);
+
+        }
+
+    }, [objectArrayZaman])
+
+
+
+    useEffect(() => {
 
         try {
-            let parsedArray = JSON.parse(tags[0]);
-            setObjectArrayyy(parsedArray);
+
+            setObjectArrayyy(tags)
+
         } catch (error) {
+
             console.error("Error parsing JSON:", error);
         }
 
     }, [tags])
 
 
+    const [daysToPrivate, setDaysToPrivate] = useState<any>([])
+
+    useEffect(() => {
+
+        console.log("daysToPrivate", daysToPrivate)
+
+    }, [daysToPrivate])
 
 
     useEffect(() => {
 
-        console.log("privateData", tagsPrivate)
+
+
+        console.log("tagsPrivate", tagsPrivate)
+
+        if (tagsPrivate.length > 0) {
+            let selectDays: any = JSON.parse(tagsPrivate);
+
+            console.log("slappU", selectDays)
+
+            selectDays.map((w: any, a: any) => {
+
+                const daysName = w.value
+
+                // Check if a day already exists in the array
+                //const dayExists = daysToPrivate.some((item: any) => item.hasOwnProperty(daysName));
+
+                //if(!dayExists){
+
+                const newDaysObject = {
+                    [daysName]: [{
+                        kmola: kMolaUpdate,
+                        rdevu: RdevSureUpdate,
+                        saatTime: []
+                    }]
+                }
+
+                setDaysToPrivate([...daysToPrivate, newDaysObject])
+
+                // }
+
+
+            })
+
+
+        }
+
+
+
+        try {
+            setObjectArrayZaman(tagsPrivate)
+        } catch (error) {
+            console.error("Error parsing JSON:", error);
+        }
 
     }, [tagsPrivate])
 
@@ -316,7 +386,6 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
     // Define an array of suggestions for the dropdown
 
     const handleTagChange = (newTags: any) => {
-        console.log("hoyy", newTags)
         setTags(newTags);
     };
 
@@ -324,23 +393,7 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
     //private Tagify to set 
     const handleTagChangePrivate = (newTags: any) => {
         settagsPrivate(newTags);
-
     };
-
-    const handleTagsToOzel = () => {
-
-        console.log("taggs", objectArrayyy)
-        let objectArray = objectArrayyy.flatMap(item => JSON.parse(item));
-        console.log("weelbeen", objectArray)
-
-        const normValues: string[] = objectArray.map((normElem) => normElem.value);
-        const newSuggestions = suggestions.filter(
-            (suggestion) => !normValues.includes(suggestion)
-        );
-
-        setFilteredSuggestions(newSuggestions);
-
-    }
 
 
 
@@ -348,30 +401,246 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
     const options = ["Option 1", "Option 2", "Option 3"]; // example options
     const KMolaSure = ["5", "10", "15", "20", "25", "30"]
     const RdevSure = ["10", "15", "20", "25", "30", "35", "40", "50", "60", "90", "120"]
+    const ozelZamanSaat = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
+    const ozelZamanDakkika = ["00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"]
 
     //date update from child data
-    const [kMolaUpdate, setKMolaUpdate] = useState("no update");
-    const [RdevSureUpdate, setRdevSureUpdate] = useState("no update yet");
+    const [kMolaUpdate, setKMolaUpdate] = useState(KMolaSure[0]);
+    const [RdevSureUpdate, setRdevSureUpdate] = useState(RdevSure[0]);
+
+    const [ozelZamanSaatToChange, setOzelZamanSaatToChange] = useState("no update yet");
+    const [ozelZamanDakkikaToChange, setOzelZamanDakkikaToChange] = useState("no update yet");
+
+
+
+
+
+
 
     useEffect(() => {
-        
-        console.log("kisaMola",kMolaUpdate )
+        console.log("Tobechangeu", ozelZamanSaatToChange)
+    }, [ozelZamanSaatToChange])
 
-    }, [kMolaUpdate])
-    
+
+
 
 
     const handleKmola = (dataFromChild: any) => {
-
         setKMolaUpdate(dataFromChild);
-
     }
 
     const handleRdevSure = (dataFromChild: any) => {
-
         setRdevSureUpdate(dataFromChild);
-
     }
+
+    //ozel zaman saat to be change
+    const handleZamanSaat = (dataFromChild: any) => {
+        setOzelZamanSaatToChange(dataFromChild)
+    }
+
+    //ozel zaman saat to be change
+    const handleZamanDakkika = (dataFromChild: any) => {
+        setOzelZamanDakkikaToChange(dataFromChild)
+    }
+
+    //display zaman an close zaman
+    const [displayZaman, setDisplayZaman] = useState(true);
+
+
+    //days time picker
+    const [selectedTime, setSelectedTime] = useState<string | undefined>('');
+
+    // ozel zaman Saati hesaplama burada
+    useEffect(() => {
+        console.log("weshhUppuu::", RdevSureUpdate)
+    }, [RdevSureUpdate])
+
+    useEffect(() => {
+
+        console.log("okkWeelSaid", kMolaUpdate)
+    }, [kMolaUpdate])
+
+    useEffect(() => {
+
+        console.log("wehhsPo", selectedTime)
+
+    }, [selectedTime])
+
+
+    const handleTimeChange = (value: string) => {
+        setSelectedTime(value);
+
+    };
+
+
+
+
+
+
+
+    // delete tags from there
+    const deleteTag = (indexToDelete: any, valueTodelete: any, key: any) => {
+
+        console.log("toDellete::", valueTodelete, "okkWeshh", key)
+
+        // Make a copy of the state
+        let newState = [...daysToPrivate];
+
+        // Find the index of the object with the "pazartesi" key
+        let indexofDay = newState.findIndex(obj => obj.hasOwnProperty(key));
+
+        if (indexofDay !== -1) {
+            // Find the index of the value to delete in the saatTime array
+            let valueIndex = newState[indexofDay][key][0]['saatTime'].indexOf(valueTodelete);
+
+            if (valueIndex !== -1) {
+                // Remove the value from the saatTime array
+                newState[indexofDay][key][0]['saatTime'].splice(valueIndex, 1);
+                // Set the state with the modified copy
+                setDaysToPrivate(newState);
+            }
+        }
+    }
+
+
+    // calculate the time in the day
+    const [privateDaysTimes, setPrivateDaysTimes] = useState<any>([])
+
+    useEffect(() => {
+        console.log("wefftt", privateDaysTimes)
+
+
+    }, [privateDaysTimes])
+
+
+    // Helper function to convert HH:MM time string to minutes
+    function convertTimeToMinutes(timeStr: any) {
+        const [hours, minutes] = timeStr.split(":").map(Number);
+        return (hours * 60) + minutes;
+    }
+
+    // Helper function to convert minutes to HH:MM time string
+    function convertMinutesToTime(minutes: any) {
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+    }
+
+
+
+    //add more time in a day to proove the time
+    const addTimeforPrivateSettings = (value: any, index: any, key: any) => {
+
+
+        //calculate the time of randvu sure and break time
+        const parsedValueKmola = parseInt(kMolaUpdate, 10);
+        const parsedValueRsure = parseInt(RdevSureUpdate, 10);
+
+
+        // Make a copy of the state
+        let newState = [...daysToPrivate];
+        // Find the index of the object with the "pazartesi" key
+        let indexOfDay = newState.findIndex(obj => obj.hasOwnProperty(key));
+
+        // Convert given times to minutes
+        const giveTimeInMinutes = convertTimeToMinutes(selectedTime);
+        const saatTimeInMinutes = newState[indexOfDay][key][0]['saatTime'].map((time: any) => convertTimeToMinutes(time));
+
+        console.log("whatHERE", saatTimeInMinutes)
+        console.log("oppgu", giveTimeInMinutes)
+
+        let result = false;
+
+
+        if (!isNaN(parsedValueKmola) && !isNaN(parsedValueRsure)) {
+
+            let totalTimeToSpend = parsedValueKmola + parsedValueRsure
+            console.log("yuoaap", totalTimeToSpend)
+
+            if (saatTimeInMinutes.length > 0) {
+
+                for (let i = 0; i < saatTimeInMinutes.length; i++) {
+
+                    let timeRequired = saatTimeInMinutes[i] + totalTimeToSpend
+                    let timeRequiredless = giveTimeInMinutes + totalTimeToSpend
+                    console.log("reqiredTime", timeRequiredless)
+
+                    if (giveTimeInMinutes > saatTimeInMinutes[i]) {
+                        console.log("yessfooo")
+                        if (i === saatTimeInMinutes.length - 1) {
+                            console.log("likeme")
+                            if (timeRequired <= giveTimeInMinutes) {
+                                console.log("wellSaidTrue::", giveTimeInMinutes)
+
+                                newState[indexOfDay][key][0]['saatTime'].push(convertMinutesToTime(giveTimeInMinutes));
+                                setDaysToPrivate(newState);
+                                // result = true;
+                                break;
+                            } else {
+
+                                toastify({ type: 'error', message: 'Randevu ve mola sürelerini dikkate alınız.' });
+
+                            }
+                        }
+                    } else {
+
+
+                        if (timeRequiredless > saatTimeInMinutes[i]) {
+                            toastify({ type: 'error', message: 'Randevu ve mola sürelerini dikkate alınız.' });
+                            break;
+                        } else {
+
+                            if (saatTimeInMinutes[i - 1]) {
+
+                                if (saatTimeInMinutes[i - 1] + totalTimeToSpend >= giveTimeInMinutes) {
+                                    toastify({ type: 'error', message: 'Randevu ve mola sürelerini dikkate alınız.' });
+                                    break;
+                                } else {
+                                    newState[indexOfDay][key][0]['saatTime'].splice(i, 0, convertMinutesToTime(giveTimeInMinutes));
+                                    setDaysToPrivate(newState);
+                                    break;
+                                }
+
+                            } else {
+                               
+                                // Convert back to HH:MM format before adding to saatTime
+                                newState[indexOfDay][key][0]['saatTime'].splice(i, 0, convertMinutesToTime(giveTimeInMinutes));
+                                setDaysToPrivate(newState);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            } else {
+                if (indexOfDay !== -1) {
+                    // Add the new value to the saatTime array
+                    newState[indexOfDay][key][0]['saatTime'].push(selectedTime);
+                    // Set the state with the modified copy
+                    setDaysToPrivate(newState);
+                }
+            }
+
+        } else {
+
+
+        }
+
+
+        // if (result === true) {
+
+        //     if (indexOfDay !== -1) {
+        //         // Add the new value to the saatTime array
+        //         newState[indexOfDay][key][0]['saatTime'].push(selectedTime);
+        //         // Set the state with the modified copy
+        //         setDaysToPrivate(newState);
+        //     }
+        // } else {
+        //     console.log("zamanKontrolEdiniz")
+        // }
+
+    };
+
 
 
 
@@ -380,69 +649,51 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
     return (
 
         <div className={`card ${className}`}>
-
             <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
                 <div className="container-xxl" id="kt_content_container">
                     <div className="d-flex flex-column gap-7 gap-lg-10">
                         <div className="d-flex flex-wrap flex-stack gap-5 gap-lg-10">
                             <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-lg-n2 me-auto">
-                                <li className="nav-item" onClick={() => { console.log("dataWeZaman::", tags) }}>
+                                <li className="nav-item" onClick={() => setDisplayZaman(true)}>
                                     <a className="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_sales_order_summary"> Zaman Koşullu </a>
                                 </li>
-                                <li className="nav-item" onClick={() => { handleTagsToOzel() }}>
-
+                                <li className="nav-item" onClick={() => setDisplayZaman(false)} >
                                     <a className="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_sales_order_history"> Özel Koşullu </a>
                                 </li>
                             </ul>
-
-
                         </div>
 
-                        <div className='tab-content'>
 
+
+                        <div className='tab-content' style={{ display: displayZaman ? 'block' : 'none' }}>
                             <div className='tab-pane fade show active' id="kt_ecommerce_sales_order_summary">
-
                                 <div className="  gap-5 gap-lg-10  mb-4">
-
-
                                     <div>
                                         <h4 className=" fw-bold text-gray-800 text-xl font-normal mb-0">Zaman Koşullu Randevu Oluştur!</h4>
                                         <p className="fs-6 fw-semibold text-gray-600 pb-4 m-0">Muayene süreniz kesin bir zaman dilimini kapsıyorsa zaman koşullu randevu çizelgesi oluşturabilirsiniz.</p>
-
                                     </div>
-
 
                                 </div>
 
                                 <div className="mb-8">
 
                                     <div className='mb-4'>
-                                        <h2 className='fs-6 fw-semibold form-label mb-2 ms-1'>Randevu Günlerini Belirle</h2>
 
+                                        <h2 className='fs-6 fw-semibold form-label mb-2 ms-1'>Randevu Günlerini Belirle</h2>
 
                                     </div>
 
 
 
                                     {/* new tagify here */}
-
-
-
                                     <div className='w-full'>
-
                                         <MetronicTagify
                                             value={tags}
                                             onChange={handleTagChange}
-                                            suggestions={secondSugestion}
-
+                                            suggestions={filteredZamanDays}
                                         />
-
                                     </div>
-
-
                                 </div>
-
-
 
 
                                 <div className='mb-8'>
@@ -482,12 +733,12 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                                                     <div className="col-12 mt-3 mb-3">
                                                         {/* Add any content or styling to this div as needed */}
                                                         <div className="form-check form-check-custom form-check-solid w-full">
-                                                            <input className="form-check-input" type="checkbox" value="" id="same_as_billing" checked={showLastTwo} onClick={handleClick} />
+                                                            <input className="form-check-input" type="checkbox" value="" id="same_as_billing"
+                                                                checked={showLastTwo} onClick={handleClick} />
                                                             <label className="form-check-label" >Mola</label>
+
                                                         </div>
                                                     </div>
-
-
                                                 )}
                                             </React.Fragment>
                                         ))}
@@ -513,9 +764,6 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
 
                                             <DropdownWithoutSearch options={KMolaSure} updateData={handleKmola} />
-
-
-
 
 
                                         </div>
@@ -564,7 +812,6 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
 
                                 <div className="mb-8">
-
                                     <div className='mb-4'>
                                         <h2 className='fs-6 fw-semibold form-label mb-2 ms-1'>Randevu Günlerini Belirle</h2>
                                     </div>
@@ -576,15 +823,9 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                                             value={tagsPrivate}
                                             onChange={handleTagChangePrivate}
                                             suggestions={filteredSuggestions}
-
                                         />
 
-                                        {/* <MetronicTagify
-                                            value={tags}
-                                            onChange={handleTagChangePrivate}
-                                            suggestions={filteredSuggestions}
 
-                                        /> */}
                                     </div>
 
                                 </div>
@@ -627,10 +868,94 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                                     </div>
                                 </div>
 
+
+                                {
+                                    daysToPrivate.length > 0 && (
+
+
+                                        daysToPrivate.map((v: any, i: any) => {
+
+                                            return Object.keys(v).map((key: any) => {
+
+                                                console.log("bUNNEEF", v, "koop", key)
+
+                                                return (
+                                                    <div className='row mb-8 flex  mt-36' >
+
+                                                        <hr />
+
+                                                        <div className='w-full mb-4 mt-5'>
+
+                                                            <h4 className=" fw-bold text-gray-800 text-xl font-normal mb-0"> {key}</h4>
+
+                                                            <p className='fs-6 fw-semibold form-label mb-2 ms-1'>
+
+                                                                {key} günleri için alınabilecek randevu saatlerini giriniz.
+
+                                                            </p>
+                                                        </div>
+
+                                                        {/* choose times to be send */}
+
+                                                        <div className=''>
+
+                                                            {v[key].map((tag: any, index: any) => (
+
+                                                                tag.saatTime.map((e: any, p: any) => (
+
+                                                                    < div key={p} className="form-control form-control-solid tag " onClick={() => { deleteTag(index, e, key) }}>
+                                                                        {e}
+                                                                        < button >
+                                                                            &nbsp;&nbsp;
+                                                                            <i className="fas fa-trash-alt"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                )
+                                                                )
+                                                            )
+                                                            )
+                                                            }
+                                                        </div>
+
+
+
+
+
+                                                        <div className='w-full flex mt-5'>
+                                                            <div className="col-5">
+                                                                <FlatpickrInput value={selectedTime} onChange={handleTimeChange} />
+                                                            </div>
+                                                            &nbsp;&nbsp; &nbsp;
+                                                            <div className=''>
+                                                                <div className="form-group " onClick={() => addTimeforPrivateSettings(v, i, key)}>
+                                                                    <button type="button" className="btn  btn-light-primary flex">
+                                                                        <i className="ki-duotone ki-plus fs-2"></i>
+                                                                        Ekle </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                )
+
+                                            });
+
+
+
+
+
+                                        }).flat()
+
+
+                                    )
+                                }
+
+
+
+
                             </div>
                         </div>
-
-
 
                         <div className="card-footer d-flex justify-content-end py-6 px-9">
                             {/* <button type="reset" className="btn btn-light btn-active-light-primary me-2" >İptal</button> */}
@@ -640,11 +965,11 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
                     </div>
                 </div>
-            </div>
+            </div >
 
 
 
-        </div>
+        </div >
     )
 
 }

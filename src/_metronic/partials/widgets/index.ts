@@ -16,6 +16,7 @@ export * from "./feeds/MetronicCropModal"
 export * from "./feeds/TagifyOzelData"
 export * from "./feeds/SocialAllList"
 export * from  "./feeds/Select2Country"
+export * from "./feeds/FlatpickrInput"
 
 
 // mixed

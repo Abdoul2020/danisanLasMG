@@ -18,19 +18,16 @@ const FeedsWidget9: React.FC<Props> = ({ className }) => {
 			type: "pdf",
 			name: "uzman sertifika",
 			src: ""
-
 		},
 		{
 			type: "pdf",
 			name: "birinciPdf",
 			src: ""
-
 		},
 		{
 			type: "pdf",
 			name: "ikinciPdf",
 			src: ""
-
 		}
 	])
 	//pdf certificate Data
@@ -89,11 +86,8 @@ const FeedsWidget9: React.FC<Props> = ({ className }) => {
 
 	return (
 
-
 		<div className="row g-6 g-xl-9 mb-6 mb-xl-9">
-
 			{/* click and choose file */}
-
 			<div className="col-md-6 col-lg-4 col-xl-3">
 				<input type="file" ref={fileInput} style={{ display: "none" }} onChange={handleFileChange} />
 				<div onClick={handleDivClick} className="card h-100 flex-center bg-light-primary border-primary border border-dashed p-8">
@@ -136,9 +130,6 @@ const FeedsWidget9: React.FC<Props> = ({ className }) => {
 										</div>
 										<div className="fs-5 fw-bold mb-2">{v.name}</div>
 									</a>
-
-
-
 								</div>
 							</div>
 						</div>

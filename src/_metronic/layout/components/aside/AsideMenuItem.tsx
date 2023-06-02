@@ -27,19 +27,24 @@ const AsideMenuItem: React.FC<Props & WithChildren> = ({
   const {aside} = config
 
   return (
-    <div className='menu-item hidden'>
+    <div className='menu-item'>
       <Link className={clsx('menu-link', {active: isActive})} to={to}>
         {hasBullet && (
           <span className='menu-bullet'>
+
             <span className='bullet bullet-dot'></span>
+
           </span>
         )}
         {icon && aside.menuIcon === 'svg' && (
           <span className='menu-icon'>
+
             <KTIcon iconName={icon} className='fs-5' />
+
           </span>
         )}
         <span className='menu-title'>{title}</span>
+        
       </Link>
       {children}
     </div>

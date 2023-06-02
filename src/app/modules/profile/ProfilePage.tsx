@@ -9,10 +9,15 @@ import {ProfileHeader} from './ProfileHeader';
 import { FC } from 'react';
 import {ProfilePageComponent} from "../../../service/Model/expert/profilePage"
 
+import {useIntl} from 'react-intl'
+
+
+
+let titleTochange : any;
 
 const profileBreadCrumbs: Array<PageLink> = [
   {
-    title: 'Profil',
+    title: "Expert" ,
     path: '/crafted/pages/profile/overview',
     isSeparator: false,
     isActive: false,
@@ -26,71 +31,98 @@ const profileBreadCrumbs: Array<PageLink> = [
   },
 ]
 
-const ProfilePage: FC<ProfilePageComponent> = ({userData}) => (
 
-  <Routes>
-    <Route
-      element={
-        <>
-          <ProfileHeader userData={userData} />
-          
-          <Outlet />
 
-        </>
-      }
-    >
+const ProfilePage: FC<ProfilePageComponent> = ({userData}) => {
+
+
+
+//langugage 
+const intl = useIntl()
+
+
+  return (
+    <Routes>
       <Route
-        path='overview'
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Hesap Bilgileri</PageTitle>
+            <ProfileHeader userData={userData} />
+            
+            <Outlet />
+  
+          </>
+        }
+      >
+        <Route
+          path='overview'
+          element={
+            <>
+              <PageTitle breadcrumbs={profileBreadCrumbs}>
+  
+                {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.ACCOUNT_INFO'})}
+                </PageTitle>
+  
+              <Overview />
+  
+            </>
+          }
+        />
+        <Route
+          path='projects'
+          element={
+            <>
+              <PageTitle breadcrumbs={profileBreadCrumbs}>
 
-            <Overview />
+                {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.TIME_LINE'})}
 
-          </>
-        }
-      />
-      <Route
-        path='projects'
-        element={
-          <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Randevu Çizelgesi</PageTitle>
-            <Projects />
-          </>
-        }
-      />
-      <Route
-        path='campaigns'
-        element={
-          <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}> Uzmanlık & Özgeçmiş</PageTitle>
-            <Campaigns />
-          </>
-        }
-      />
-      <Route
-        path='documents'
-        element={
-          <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Hesap Ayarı</PageTitle>
-            <Documents />
-          </>
-        }
-      />
-      <Route
-        path='connections'
-        element={
-          <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>İletişim</PageTitle>
-            <Connections />
-          </>
-        }
-      />
-      <Route index element={<Navigate to='/crafted/pages/profile/overview' />} />
-      
+                </PageTitle>
+              <Projects />
+            </>
+          }
+        />
+        <Route
+          path='campaigns'
+          element={
+            <>
+              <PageTitle breadcrumbs={profileBreadCrumbs}> 
+              {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.RESUME'})}
+              </PageTitle>
+              <Campaigns />
+            </>
+          }
+        />
+        <Route
+          path='documents'
+          element={
+            <>
+              <PageTitle breadcrumbs={profileBreadCrumbs}>
 
-    </Route>
-  </Routes>
-)
+                {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.CERTIFICATE'})}
+
+                </PageTitle>
+              <Documents />
+            </>
+          }
+        />
+        <Route
+          path='connections'
+          element={
+            <>
+              <PageTitle breadcrumbs={profileBreadCrumbs}>
+
+                {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.CONTACT'})}
+
+                </PageTitle>
+              <Connections />
+            </>
+          }
+        />
+        <Route index element={<Navigate to='/crafted/pages/profile/overview' />} />
+        
+  
+      </Route>
+    </Routes>
+  )
+}
 
 export default ProfilePage

@@ -18,20 +18,11 @@ type Props = {
 const MetronicTagify:React.FC<Props>  = ({ value, onChange, suggestions  }) => {
 
 
-  // const handleChangeZaman = (event:any) => {
+  console.log("teomme", suggestions )
 
-  //   const data = event.target.value;
-  //   console.log("arrayType", data)
-  //   console.log('array?', Array.isArray(data));
-  //   console.log('TypeGhere', typeof data);
-  //   handleDatafromUpdateZaman(data);
-
-  // };
-
-    
-  const inputRef = useRef(null);
 
   useEffect(() => {
+
     if (inputRef.current) {
       const tagify = new Tagify(inputRef.current, {
         // Tagify configuration options go here
@@ -70,6 +61,31 @@ const MetronicTagify:React.FC<Props>  = ({ value, onChange, suggestions  }) => {
       };
 
     }
+
+
+  }, [suggestions])
+  
+
+
+  // const handleChangeZaman = (event:any) => {
+
+  //   const data = event.target.value;
+  //   console.log("arrayType", data)
+  //   console.log('array?', Array.isArray(data));
+  //   console.log('TypeGhere', typeof data);
+  //   handleDatafromUpdateZaman(data);
+
+  // };
+
+    
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+
+
+   
+
+
   }, []);
 
 

@@ -28,7 +28,7 @@ const AsideMenuItemWithSub: React.FC<Props & WithChildren> = ({
   return (
 
     <div
-      className={clsx('menu-item hidden', {'here show': isActive}, 'menu-accordion')}
+      className={clsx('menu-item ', {'here show': isActive}, 'menu-accordion')}
       data-kt-menu-trigger='click'
     >
       <span className='menu-link'>

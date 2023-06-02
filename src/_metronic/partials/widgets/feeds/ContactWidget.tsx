@@ -350,7 +350,7 @@ const ContactWidget: React.FC<Propss> = ({ className }) => {
 					<form id="kt_account_profile_details_form" className="form"  >
 						<div className="card-body border-top p-9">
 							<div className="row mb-6">
-								<label className="col-lg-4 col-form-label required fw-semibold fs-6">Ülke</label>
+								<label className="col-lg-4 col-form-label required fw-semibold fs-6">Ülke</label> 
 								<div className="col-lg-8">
 									<div className="row">
 										<div className="col-lg-12 fv-row">

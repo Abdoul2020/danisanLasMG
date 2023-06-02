@@ -6,6 +6,14 @@ import {Dropdown1} from '../../../_metronic/partials'
 import {ProfilePageComponent} from "../../../service/Model/expert/profilePage"
 import { useSelector, useDispatch } from "react-redux";
 
+import {useIntl} from 'react-intl'
+
+
+
+
+
+
+
 const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
 
 
@@ -20,6 +28,9 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
 
 
   const location = useLocation()
+
+   //langugage 
+   const intl = useIntl()
 
   return (
     <div className='card mb-5 mb-xl-10'>
@@ -79,7 +90,12 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 <a href='#' className='btn btn-sm btn-light me-2' id='kt_user_follow_button'>
                   <KTIcon iconName='check' className='fs-3 d-none' />
 
-                  <span className='indicator-label'> Paylaş </span>
+                  <span className='indicator-label'>
+                    
+                     {/* Paylaş  */}
+                     {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.SHARE'})}
+                  
+                  </span>
                   <span className='indicator-progress'>
                     Lütfen bekleyin...
                     <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
@@ -91,7 +107,7 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                   data-bs-toggle='modal'
                   data-bs-target='#kt_modal_offer_a_deal'
                 >
-                 Yeni
+                 {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.NEW'})}
                 </a>
                 <div className='me-0'>
                   <button
@@ -121,7 +137,9 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                         </div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'>Kazancım</div>
+                    <div className='fw-bold fs-6 text-gray-400'>
+                      {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.EARN'})}
+                      </div>
 
                   </div>
 
@@ -131,7 +149,9 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                       <div className='fs-2 fw-bolder'>75</div>
                     </div>
 
-                    <div className='fw-bold fs-6 text-gray-400'> Toplam Randevu</div>
+                    <div className='fw-bold fs-6 text-gray-400'>
+                       {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.ALLMEETING'})}
+                       </div>
                   </div>
 
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -139,7 +159,10 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                       <KTIcon iconName='arrow-up' className='fs-3 text-success me-2' />
                       <div className='fs-2 fw-bolder'>60%</div>
                     </div>
-                    <div className='fw-bold fs-6 text-gray-400'> Başarı</div>
+                    <div className='fw-bold fs-6 text-gray-400'>
+                       {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.SUCCESS'})}
+
+                       </div>
                   </div>
 
 
@@ -148,7 +171,10 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
 
               <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                 <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
-                  <span className='fw-bold fs-6 text-gray-400'> Profil Tamamlama</span>
+                  <span className='fw-bold fs-6 text-gray-400'>
+                     {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.PROFIL_COMPLETE'})}
+
+                     </span>
                   <span className='fw-bolder fs-6'>90%</span>
                 </div>
                 <div className='h-5px mx-3 w-100 bg-light mb-3'>
@@ -173,7 +199,8 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 }
                 to='/crafted/pages/profile/overview'
               >
-             Hesap Bilgileri
+             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.ACCOUNT_INFO'})}
+
 
               </Link>
             </li>
@@ -185,7 +212,8 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 }
                 to='/crafted/pages/profile/projects'
               >
-                Randevu Çizelgesi
+             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.TIME_LINE'})}
+
 
               </Link>
             </li>
@@ -197,7 +225,8 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 }
                 to='/crafted/pages/profile/campaigns'
               >
-                 Özgeçmiş
+             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.RESUME'})}
+
 
               </Link>
             </li>
@@ -209,7 +238,8 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 }
                 to='/crafted/pages/profile/documents'
               >
-                Sertifika
+             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.CERTIFICATE'})}
+
               </Link>
             </li>
             <li className='nav-item'>
@@ -222,7 +252,8 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 to='/crafted/pages/profile/connections'
 
               >
-                İletişim
+             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.CONTACT'})}
+
               </Link>
             </li>
           </ul>

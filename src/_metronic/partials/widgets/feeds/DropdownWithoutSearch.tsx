@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, DropdownProps } from 'react-bootstrap';
 
 interface DropdownComponentProps {
   options: string[];
-  updateData: any
-
+  updateData: any;
 }
 
 const DropdownWithoutSearch: React.FC<DropdownComponentProps> = ({ options, updateData }) => {
@@ -12,35 +11,21 @@ const DropdownWithoutSearch: React.FC<DropdownComponentProps> = ({ options, upda
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleToggle = () => {
-    setDropdownOpen((prevOpen) => !prevOpen);
+  const handleToggle = (isOpen: boolean, meta: any) => {
+    // close dropdown when an item is selected
+    if (meta.source === 'select') {
+      setDropdownOpen(false);
+    } else {
+      setDropdownOpen(isOpen);
+    }
   };
-
-  // set new select Type of data  & sen to parent 
-
 
   const handleSelect = (selectedKey: string | null) => {
     if (selectedKey !== null) {
       setSelectedOption(selectedKey);
-      setDropdownOpen(false);
       updateData(selectedKey);
     }
   };
-  
-
-
-  // const handleSelect = (selectedKey: string | null) => {
-  //   if (selectedKey !== null) {
-
-  //     setSelectedOption(selectedKey);
-  //     setDropdownOpen(false);
-  //     updateData(selectedOption);
-  //   }
-  // };
-
-
-
-
 
   return (
     <Dropdown show={isDropdownOpen} onToggle={handleToggle} onSelect={handleSelect}>
@@ -48,7 +33,7 @@ const DropdownWithoutSearch: React.FC<DropdownComponentProps> = ({ options, upda
         {selectedOption}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu style={{ width: "100%" }}>
+      <Dropdown.Menu style={{ width: "100%", maxHeight: '200px', overflow: 'auto' }}>
         {options.map((option) => (
           <Dropdown.Item
             key={option}
