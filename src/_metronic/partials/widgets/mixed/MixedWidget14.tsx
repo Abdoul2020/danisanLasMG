@@ -50,7 +50,7 @@ const MixedWidget14: React.FC<Props> = ({className, backGroundColor, chartHeight
         <div className='d-flex flex-column flex-grow-1'>
           {/* begin::Title                    */}
           <a href='#' className='text-dark text-hover-primary fw-bolder fs-3'>
-            Contributors
+            Seans Sürem
           </a>
 
           {/* end::Title */}
@@ -70,11 +70,11 @@ const MixedWidget14: React.FC<Props> = ({className, backGroundColor, chartHeight
           {/* end::Symbol */}
 
           {/* begin::Number */}
-          <span className='text-dark fw-bolder fs-3x me-2 lh-0'>47</span>
+          <span className='text-dark fw-bolder fs-3x me-2 lh-0'>107</span>
           {/* end::Number */}
 
           {/* begin::Text */}
-          <span className='text-dark fw-bolder fs-6 lh-0'>- 12% this week</span>
+          <span className='text-dark fw-bolder fs-6 lh-0'>- Saat</span>
           {/* end::Text */}
         </div>
         {/* end::Stats */}

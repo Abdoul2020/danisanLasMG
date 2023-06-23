@@ -19,39 +19,177 @@ body::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #FFF;
   background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(#327277), to(#327277), color-stop(.6, #327277))
-  /* background-image: #1c7b17; */
+    /* background-image: #1c7b17; */
 }
 
 
 .custom-dropdown-menu {
-    position: static;
-    transform: none !important;
+  position: static;
+  transform: none !important;
 }
 
 .icon-hovered {
-    transition: all 0.3s ease;
-    opacity: 0;
-  }
-  
-  .hovered .icon-hovered {
-    opacity: 1;
-  }
-
-  .ReactQueryDevtools{
-    display: none !important;
-  }
-  
-
-  .timewall_container{
-    margin-top: 100px !important;
-  }
-
-  /* //tags to replace */
-  .tag {
-    width: initial !important;
-    display: inline-block !important;
-    padding: 10px;
-    /* background-color: #f0f0f0; */
-    margin: 5px;
-    border-radius: 5px;
+  transition: all 0.3s ease;
+  opacity: 0;
 }
+
+.hovered .icon-hovered {
+  opacity: 1;
+}
+
+.ReactQueryDevtools {
+  display: none !important;
+}
+
+
+.timewall_container {
+  margin-top: 100px !important;
+}
+
+/* //tags to replace */
+.tag {
+  width: initial !important;
+  display: inline-block !important;
+  padding: 10px;
+  /* background-color: #f0f0f0; */
+  margin: 5px;
+  border-radius: 5px;
+}
+
+
+/* icon color from */
+.facebook-icon {
+  color: #3b5998 !important;
+}
+.instagram-icon {
+  color: #C13584 !important;
+}
+.twitter-icon {
+  color: #1DA1F2 !important;
+}
+.whatsapp-icon {
+  color: #25D366 !important;
+}
+.youtube-icon {
+  color: #FF0000 !important;
+}
+.pinterest-icon {
+  color: #BD081C !important;
+}
+.tumblr-icon {
+  color: #36465D !important;
+}
+.reddit-icon {
+  color: #FF5700 !important;
+}
+.vimeo-icon {
+  color: #1AB7EA !important;
+}
+.slack-icon {
+  color: #4A154B !important;
+}
+.dribbble-icon {
+  color: #EA4C89 !important;
+}
+.github-icon {
+  color: #181717 !important;
+}
+.zillow-icon {
+  color: #0074E4 !important;
+}
+.angellist-icon {
+  color: #000000 !important;
+}
+.soundcloud-icon {
+  color: #FF3300 !important;
+}
+.medium-icon {
+  color: #000000 !important;
+}
+.twitch-icon {
+  color: #6441A5 !important;
+}
+.flickr-icon {
+  color: #0063DC !important;
+}
+.yelp-icon {
+  color: #D32323 !important;
+}
+.spotify-icon {
+  color: #1DB954 !important;
+}
+.slideshare-icon {
+  color: #0077B5 !important;
+}
+.vkontakte-icon {
+  color: #4680C2 !important;
+}
+.xing-icon {
+  color: #006567 !important;
+}
+.weibo-icon {
+  color: #E6162D !important;
+}
+.tripadvisor-icon {
+  color: #34E0A1 !important;
+}
+
+
+/* popup error */
+.field-error {
+  color: red;
+}
+
+
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+/* css myswal */
+
+.mySwal {
+  background: red;
+}
+
+.mySwal.clicked {
+  background: blue;
+}
+
+/* css for time table */
+.calendar-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar-component h2 {
+  color: #5d78ff;
+}
+
+.react-calendar {
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  max-width: 350px;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #f4516c;
+}
+
+.react-switch {
+  margin-bottom: 20px;
+}
+
+.react-switch-bg {
+  background: #716aca !important;
+}
+
+.react-calendar{
+  width: 100% !important;
+}
+
+

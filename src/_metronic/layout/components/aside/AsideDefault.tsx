@@ -44,6 +44,7 @@ const AsideDefault = () => {
               alt='Logo'
               className=' logo theme-light-show'
               src={toAbsoluteUrl('/media/megaMage/megaLogo_light.png')}
+              
             />
           )}
 

@@ -19,7 +19,7 @@ const MixedWidget15: FC<Props> = ({className, backGroundColor}) => (
       <div className='d-flex flex-column mb-7'>
         {/* begin::Title  */}
         <a href='#' className='text-dark text-hover-primary fw-bolder fs-3'>
-          Summary
+           Hızlı Özet
         </a>
         {/* end::Title */}
       </div>
@@ -39,8 +39,8 @@ const MixedWidget15: FC<Props> = ({className, backGroundColor}) => (
 
             {/*begin::Title*/}
             <div>
-              <div className='fs-5 text-dark fw-bolder lh-1'>$50K</div>
-              <div className='fs-7 text-gray-600 fw-bold'>Sales</div>
+              <div className='fs-5 text-dark fw-bolder lh-1'>₺10K</div>
+              <div className='fs-7 text-gray-600 fw-bold'>Satış</div>
             </div>
             {/*end::Title*/}
           </div>
@@ -60,8 +60,8 @@ const MixedWidget15: FC<Props> = ({className, backGroundColor}) => (
 
             {/*begin::Title*/}
             <div>
-              <div className='fs-5 text-dark fw-bolder lh-1'>$4,5K</div>
-              <div className='fs-7 text-gray-600 fw-bold'>Revenue</div>
+              <div className='fs-5 text-dark fw-bolder lh-1'>₺0</div>
+              <div className='fs-7 text-gray-600 fw-bold'> çıktı </div>
             </div>
             {/*end::Title*/}
           </div>
@@ -82,7 +82,7 @@ const MixedWidget15: FC<Props> = ({className, backGroundColor}) => (
             {/*begin::Title*/}
             <div>
               <div className='fs-5 text-dark fw-bolder lh-1'>40</div>
-              <div className='fs-7 text-gray-600 fw-bold'>Tasks</div>
+              <div className='fs-7 text-gray-600 fw-bold'>Seans</div>
             </div>
             {/*end::Title*/}
           </div>
@@ -102,8 +102,8 @@ const MixedWidget15: FC<Props> = ({className, backGroundColor}) => (
 
             {/*begin::Title*/}
             <div>
-              <div className='fs-5 text-dark fw-bolder lh-1'>$5.8M</div>
-              <div className='fs-7 text-gray-600 fw-bold'>Sales</div>
+              <div className='fs-5 text-dark fw-bolder lh-1'>₺20K</div>
+              <div className='fs-7 text-gray-600 fw-bold'>Kazanç</div>
             </div>
             {/*end::Title*/}
           </div>

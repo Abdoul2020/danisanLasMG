@@ -12,7 +12,7 @@ export function Connections() {
 
       <ContactWidget className='mb-5 mb-xxl-8' />
 
-      <SocialWidget className='mb-5 mb-xxl-8' />
+     
 
 
       </div>

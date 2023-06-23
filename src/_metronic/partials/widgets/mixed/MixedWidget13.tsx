@@ -1,9 +1,9 @@
 // @ts-nocheck
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect, useRef} from 'react'
-import ApexCharts, {ApexOptions} from 'apexcharts'
-import {getCSSVariableValue} from '../../../assets/ts/_utils'
-import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
+import React, { useEffect, useRef } from 'react'
+import ApexCharts, { ApexOptions } from 'apexcharts'
+import { getCSSVariableValue } from '../../../assets/ts/_utils'
+import { useThemeMode } from '../../layout/theme-mode/ThemeModeProvider'
 
 type Props = {
   className: string
@@ -11,9 +11,9 @@ type Props = {
   backGroundColor: string
 }
 
-const MixedWidget13: React.FC<Props> = ({className, backGroundColor, chartHeight}) => {
+const MixedWidget13: React.FC<Props> = ({ className, backGroundColor, chartHeight }) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
-  const {mode} = useThemeMode()
+  const { mode } = useThemeMode()
 
   useEffect(() => {
     const chart = refreshChart()
@@ -42,7 +42,7 @@ const MixedWidget13: React.FC<Props> = ({className, backGroundColor, chartHeight
   return (
     <div
       className={`card ${className} theme-dark-bg-body`}
-      style={{backgroundColor: backGroundColor}}
+      style={{ backgroundColor: backGroundColor }}
     >
       {/* begin::Body */}
       <div className='card-body d-flex flex-column'>
@@ -50,14 +50,14 @@ const MixedWidget13: React.FC<Props> = ({className, backGroundColor, chartHeight
         <div className='d-flex flex-column flex-grow-1'>
           {/* begin::Title                    */}
           <a href='#' className='text-dark text-hover-primary fw-bolder fs-3'>
-            Earnings
+            Randevum Sayısı
           </a>
           {/* end::Title */}
 
           <div
             ref={chartRef}
             className='mixed-widget-13-chart'
-            style={{height: chartHeight, minHeight: chartHeight}}
+            style={{ height: chartHeight, minHeight: chartHeight }}
           ></div>
         </div>
         {/* end::Wrapper */}
@@ -65,15 +65,18 @@ const MixedWidget13: React.FC<Props> = ({className, backGroundColor, chartHeight
         {/* begin::Stats */}
         <div className='pt-5'>
           {/* begin::Symbol */}
-          <span className='text-dark fw-bolder fs-2x lh-0'>$</span>
+          {/* <span className='text-dark fw-bolder fs-2x lh-0'>$</span> */}
           {/* end::Symbol */}
 
           {/* begin::Number */}
-          <span className='text-dark fw-bolder fs-3x me-2 lh-0'>560</span>
+          <span className='text-dark fw-bolder fs-3x me-2 lh-0'>
+            560
+            </span>
           {/* end::Number */}
 
           {/* begin::Text */}
-          <span className='text-dark fw-bolder fs-6 lh-0'>+ 28% this week</span>
+          <span className='text-dark fw-bolder fs-6 lh-0'>+ 28% bu hafta</span>
+
           {/* end::Text */}
         </div>
         {/* end::Stats */}
@@ -221,4 +224,4 @@ const chartOptions = (chartHeight: string): ApexOptions => {
   }
 }
 
-export {MixedWidget13}
+export { MixedWidget13 }

@@ -1,46 +1,117 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React,{useState,useEffect} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
-import {Link, useLocation} from 'react-router-dom'
-import {Dropdown1} from '../../../_metronic/partials'
-import {ProfilePageComponent} from "../../../service/Model/expert/profilePage"
+import React, { useState, useEffect, useContext } from 'react'
+import { KTIcon, toAbsoluteUrl } from '../../../_metronic/helpers'
+import { Link, useLocation } from 'react-router-dom'
+import { Dropdown1 } from '../../../_metronic/partials'
+import { ProfilePageComponent } from "../../../service/Model/expert/profilePage"
 import { useSelector, useDispatch } from "react-redux";
+import ImageContext from '../../../_metronic/partials/widgets/feeds/ImageContext'
 
-import {useIntl} from 'react-intl'
-
-
-
+import { useIntl } from 'react-intl'
 
 
 
 
-const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
 
 
-  const profileImage= useSelector((state:any)=>state.user_ExpertSlice.pro_base64);
+
+const ProfileHeader: React.FC<ProfilePageComponent> = ({ userData }) => {
+
+  const { imageUrl, setImageUrl } = useContext(ImageContext);
+
+
+  const profileImage = useSelector((state: any) => state.user_ExpertSlice.pro_base64);
 
   useEffect(() => {
 
     //console.log("changeData::",profileImage)
 
   }, [profileImage])
-  
+
+
+  //localSTorage has changed
+  const [storageChange, setStorageChange] = useState<any>("");
+
+  const [newUrl, setNewUrl] = useState("")
+
+
+
+
+  useEffect(() => {
+
+    console.log("storageComing", storageChange)
+    setNewUrl(storageChange && storageChange)
+
+
+  }, [storageChange])
+
+  const updateImage = () => {
+    console.log("fgdgfdg")
+    const id = localStorage.getItem("setIdTo");
+    const newUrl = id;
+    setStorageChange(newUrl);
+  }
+
+
+  useEffect(() => {
+
+    console.log("yesSetup::")
+
+    updateImage()
+
+
+
+    const handleStorageChange = (e: any) => {
+      console.log("staorage::",)
+      if (e.key === 'setIdTo') {
+
+        updateImage();
+
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    }
+  }, [])
+
+
+
+
+
+
 
 
   const location = useLocation()
 
-   //langugage 
-   const intl = useIntl()
+  //langugage 
+  const intl = useIntl()
 
   return (
     <div className='card mb-5 mb-xl-10'>
+
+
       <div className='card-body pt-9 pb-0'>
         <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
           <div className='me-7 mb-4'>
 
             <div className='symbol symbol-100px symbol-lg-160px symbol-fixed position-relative'>
 
-              <img src={toAbsoluteUrl(`data:image/png;base64,${profileImage && profileImage!==null && profileImage}`)} alt='Metornic' />
+              {/* <img src={toAbsoluteUrl(`data:image/png;base64,${profileImage && profileImage !== null && profileImage}`)} alt='Metornic' /> */}
+
+              {
+                imageUrl ? (
+                  <img src={imageUrl} alt="" />
+                ) : (
+                  <img src={toAbsoluteUrl(`data:image/png;base64,${profileImage && profileImage !== null && profileImage}`)} alt='Metornic' />
+                )
+
+
+
+              }
 
               <div className='position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px'></div>
 
@@ -53,11 +124,16 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
               <div className='d-flex flex-column'>
                 <div className='d-flex align-items-center mb-2'>
                   <a href='#' className='text-gray-800 text-hover-primary fs-2 fw-bolder me-1'>
-                  {userData && userData.expert_name+" "+userData.expert_surname}
+
+                    {userData && userData.expert_name + " " + userData.expert_surname}
+
+
                   </a>
                   <a href='#'>
+
                     <KTIcon iconName='verify' className='fs-1 text-primary' />
-                    
+
+
                   </a>
                 </div>
 
@@ -67,6 +143,7 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                     className='d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2'
                   >
                     <KTIcon iconName='profile-circle' className='fs-4 me-1' />
+                    DR.Drç
                     {/* {userData.expert_title.title_title && userData.expert_title.title_title} */}
                   </a>
                   <a
@@ -75,6 +152,7 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                   >
                     <KTIcon iconName='geolocation' className='fs-4 me-1' />
                     {userData && userData.expert_city}/ {userData && userData.expert_country}
+                     
                   </a>
                   <a
                     href='#'
@@ -91,24 +169,31 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                   <KTIcon iconName='check' className='fs-3 d-none' />
 
                   <span className='indicator-label'>
-                    
-                     {/* Paylaş  */}
-                     {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.SHARE'})}
-                  
+
+                    {/* Paylaş  */}
+                    {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.SHARE' })}
+
                   </span>
                   <span className='indicator-progress'>
                     Lütfen bekleyin...
                     <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                   </span>
                 </a>
-                <a
+
+                {/* <a
                   href='#'
                   className='btn btn-sm btn-primary me-3'
                   data-bs-toggle='modal'
                   data-bs-target='#kt_modal_offer_a_deal'
                 >
-                 {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.NEW'})}
-                </a>
+                  {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.NEW' })}
+                </a> */}
+                
+
+
+
+
+
                 <div className='me-0'>
                   <button
                     className='btn btn-sm btn-icon btn-bg-light btn-active-color-primary'
@@ -120,6 +205,8 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                   </button>
                   <Dropdown1 />
                 </div>
+
+
               </div>
 
 
@@ -133,13 +220,13 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                     <div className='d-flex align-items-center'>
                       <KTIcon iconName='arrow-up' className='fs-3 text-success me-2' />
                       <div className='fs-2 fw-bolder'>
-                        4500 ₺ 
-                        </div>
+                        4500 ₺
+                      </div>
                     </div>
 
                     <div className='fw-bold fs-6 text-gray-400'>
-                      {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.EARN'})}
-                      </div>
+                      {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.EARN' })}
+                    </div>
 
                   </div>
 
@@ -150,20 +237,20 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                     </div>
 
                     <div className='fw-bold fs-6 text-gray-400'>
-                       {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.ALLMEETING'})}
-                       </div>
+                      {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.ALLMEETING' })}
+                    </div>
                   </div>
 
-                  <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
+                  {/* <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                     <div className='d-flex align-items-center'>
                       <KTIcon iconName='arrow-up' className='fs-3 text-success me-2' />
                       <div className='fs-2 fw-bolder'>60%</div>
                     </div>
                     <div className='fw-bold fs-6 text-gray-400'>
-                       {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.SUCCESS'})}
+                      {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.SUCCESS' })}
 
-                       </div>
-                  </div>
+                    </div>
+                  </div> */}
 
 
                 </div>
@@ -172,16 +259,16 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
               <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                 <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
                   <span className='fw-bold fs-6 text-gray-400'>
-                     {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.PROFIL_COMPLETE'})}
+                    {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.PROFIL_COMPLETE' })}
 
-                     </span>
+                  </span>
                   <span className='fw-bolder fs-6'>90%</span>
                 </div>
                 <div className='h-5px mx-3 w-100 bg-light mb-3'>
                   <div
                     className='bg-success rounded h-5px'
                     role='progressbar'
-                    style={{width: '90%'}}
+                    style={{ width: '90%' }}
                   ></div>
                 </div>
               </div>
@@ -199,7 +286,7 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 }
                 to='/crafted/pages/profile/overview'
               >
-             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.ACCOUNT_INFO'})}
+                {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.ACCOUNT_INFO' })}
 
 
               </Link>
@@ -212,7 +299,7 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 }
                 to='/crafted/pages/profile/projects'
               >
-             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.TIME_LINE'})}
+                {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.TIME_LINE' })}
 
 
               </Link>
@@ -225,7 +312,7 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 }
                 to='/crafted/pages/profile/campaigns'
               >
-             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.RESUME'})}
+                {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.RESUME' })}
 
 
               </Link>
@@ -238,7 +325,7 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 }
                 to='/crafted/pages/profile/documents'
               >
-             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.CERTIFICATE'})}
+                {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.CERTIFICATE' })}
 
               </Link>
             </li>
@@ -252,15 +339,21 @@ const ProfileHeader: React.FC<ProfilePageComponent> = ({userData}) => {
                 to='/crafted/pages/profile/connections'
 
               >
-             {intl.formatMessage({id: 'EXPERT.HEADER.CONTENT.CONTACT'})}
+                {intl.formatMessage({ id: 'EXPERT.HEADER.CONTENT.CONTACT' })}
 
               </Link>
             </li>
           </ul>
         </div>
       </div>
+
+
+
+
+
+
     </div>
   )
 }
 
-export {ProfileHeader}
+export { ProfileHeader }

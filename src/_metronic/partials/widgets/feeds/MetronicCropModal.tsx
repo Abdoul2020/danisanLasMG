@@ -5,6 +5,8 @@ import 'react-image-crop/dist/ReactCrop.css'
 import { canvasPreview } from './imageCrop/canvasPreview'
 import { useDebounceEffect } from './imageCrop/useDebounceEffect'
 import $ from 'jquery';
+import Swal from 'sweetalert2';
+
 
 
 function centerAspectCrop(
@@ -37,6 +39,8 @@ type Props = {
 
 
 const MetronicModal: React.FC<Props> = ({ e, onReceiveData, handleDataToImage }) => {
+
+    console.log("dataE", e,"okkwell", onReceiveData, "welltap", handleDataToImage  )
 
 
     const [imgSrc, setImgSrc] = useState('')
@@ -98,32 +102,63 @@ const MetronicModal: React.FC<Props> = ({ e, onReceiveData, handleDataToImage })
         handleDataToImage(croppedImageUrl);
 
     }, [croppedImageUrl])
+
+
+
     
+	const modalDismissRef: any = useRef();
 
     function onDownloadCropClick() {
 
+        
+
+       
+
+
         if (!previewCanvasRef.current) {
+
             throw new Error('Crop canvas does not exist')
+
+        }else{
+
+            previewCanvasRef.current.toBlob((blob) => {
+
+                if (!blob) {
+                    throw new Error('Failed to create blob')
+                }
+    
+                if (blobUrlRef.current) {
+                    URL.revokeObjectURL(blobUrlRef.current)
+                }
+    
+                blobUrlRef.current = URL.createObjectURL(blob)
+
+
+                // Show success message
+				Swal.fire({
+					text: "Profil başarıyla eklendi!",
+					icon: "success",
+					buttonsStyling: false,
+					confirmButtonText: "Tamam",
+					customClass: {
+						confirmButton: "btn btn-primary"
+					}
+				}).then((result) => {
+                    
+					if (result.isConfirmed) {
+                        console.log("weeu",blobUrlRef.current)
+                        setCroppedImageUrl(blobUrlRef.current);
+                        modalDismissRef.current.click();
+					}
+				});
+    
+                 //hiddenAnchorRef.current!.href = blobUrlRef.current
+                // hiddenAnchorRef.current!.click()
+            })
+    
         }
 
-        previewCanvasRef.current.toBlob((blob) => {
 
-            if (!blob) {
-                throw new Error('Failed to create blob')
-            }
-
-
-            if (blobUrlRef.current) {
-                URL.revokeObjectURL(blobUrlRef.current)
-            }
-
-            blobUrlRef.current = URL.createObjectURL(blob)
-            setCroppedImageUrl(blobUrlRef.current);
-
-
-            // hiddenAnchorRef.current!.href = blobUrlRef.current
-            // hiddenAnchorRef.current!.click()
-        })
     }
 
     useDebounceEffect(
@@ -219,7 +254,8 @@ const MetronicModal: React.FC<Props> = ({ e, onReceiveData, handleDataToImage })
                 <div className="modal-content">
                     <div className="modal-header pb-0 border-0 justify-content-end">
 
-                        <div className="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal" >
+
+                        <div className="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal"  ref={modalDismissRef}  >
                             <i className="ki-duotone ki-cross fs-1">
                                 <span className="path1"></span>
                                 <span className="path2"></span>
@@ -258,7 +294,7 @@ const MetronicModal: React.FC<Props> = ({ e, onReceiveData, handleDataToImage })
 
 
 
-                        {/* <div className='mt-3 mb-3'>
+                        <div className='mt-3 mb-3' style={{display:"none"}}>
                             <canvas
                                 ref={previewCanvasRef}
                                 style={{
@@ -268,12 +304,12 @@ const MetronicModal: React.FC<Props> = ({ e, onReceiveData, handleDataToImage })
                                     height: completedCrop && completedCrop.height,
                                 }}
                             />
-                        </div> */}
+                        </div>
 
                         
 
                         <div>
-                        <button type="submit" className="btn btn-primary float-center" onClick={()=>{onDownloadCropClick()}} >Tamam</button>
+                        <button type="submit" className="btn btn-primary float-center" onClick={()=>{onDownloadCropClick()}} > Değiştir </button>
                             <a
                                 ref={hiddenAnchorRef}
                                 download

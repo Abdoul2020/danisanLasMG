@@ -10,7 +10,11 @@ type Props = {
 
 const CustomRow: FC<Props> = ({row}) => (
   <tr {...row.getRowProps()}>
+
+   
+    
     {row.cells.map((cell) => {
+       console.log("okkpooo", cell)
       return (
         <td
           {...cell.getCellProps()}

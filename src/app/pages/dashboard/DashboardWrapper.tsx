@@ -1,4 +1,4 @@
-import {EnableSidebar, PageTitle} from '../../../_metronic/layout/core'
+import { EnableSidebar, PageTitle } from '../../../_metronic/layout/core'
 import {
   ListsWidget4,
   ListsWidget5,
@@ -7,18 +7,24 @@ import {
   MixedWidget14,
   MixedWidget15,
 } from '../../../_metronic/partials/widgets'
+import AllCalendar from '../../../_metronic/partials/widgets/mixed/AllCalendar'
 
 const DashboardPage = () => (
   <>
     <div className='row gy-5 g-xl-10'>
       {/*begin::Col*/}
       <div className='col-xl-4'>
+
+
         <MixedWidget13
           className='card-xl-stretch mb-xl-10'
           backGroundColor='#F7D9E3'
           chartHeight='100px'
         />
       </div>
+
+
+
       {/*end::Col*/}
 
       {/*begin::Col*/}
@@ -30,45 +36,53 @@ const DashboardPage = () => (
           backGroundColor='#CBF0F4'
           chartHeight='100px'
         />
+
+
+
+
       </div>
       {/*end::Col*/}
 
       {/*begin::Col*/}
       <div className='col-xl-4'>
+
         <MixedWidget15 className='card-xl-stretch mb-xl-10' backGroundColor='#CBD4F4' />
+
       </div>
       {/*end::Col*/}
     </div>
     {/*end::Row*/}
 
-    <TablesWidget9 className='mb-5 mb-xl-10' />
+    {/* time to be replace here */}
+    <AllCalendar />
 
-    {/*begin::Row*/}
-    <div className='row gy-5 g-xl-10'>
-      {/*begin::Col*/}
-      <div className='col-xxl-6'>
-        <ListsWidget5 className='card-xl-stretch mb-xl-10' />
-      </div>
-      {/*end::Col*/}
 
-      {/*begin::Col*/}
-      <div className='col-xxl-6'>
-        <ListsWidget4 className='card-xl-stretch mb-5 mb-xl-10' items={5} />
-      </div>
-      {/*end::Col*/}
-    </div>
+
+    {/* <TablesWidget9 className='mb-5 mb-xl-10' /> */}
+
+
   </>
 )
 
 const DashboardWrapper = () => {
   return (
-    <EnableSidebar>
-      <PageTitle description='You’ve got 24 New Sales' breadcrumbs={[]}>
-        Hello, Abdoul
+
+    <>
+
+      <PageTitle description='Yeni Randevun var' breadcrumbs={[]}>
+        Merhaba Abdoul
       </PageTitle>
       <DashboardPage />
-    </EnableSidebar>
+
+    </>
+
+
   )
 }
 
-export {DashboardWrapper}
+export { DashboardWrapper }
+
+
+{/* <EnableSidebar>
+    
+</EnableSidebar> */}

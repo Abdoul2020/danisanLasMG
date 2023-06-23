@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect , useContext } from 'react'
 import { KTIcon, toAbsoluteUrl } from '../../../helpers'
 import { Dropdown2 } from '../../content/dropdown/Dropdown2'
 import MetronicDatePicker from './MetronicDatePicker';
@@ -13,11 +13,13 @@ import { Country, State, City } from "country-state-city";//counrty call
 
 import MetronicModal from './MetronicCropModal';
 
+import ImageContext from './ImageContext';
+
 
 // import moment from 'moment';
 // import 'moment-timezone';
 import moment from 'moment-timezone';
-import {useIntl} from 'react-intl'
+import { useIntl } from 'react-intl'
 
 
 
@@ -52,6 +54,9 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 		event.preventDefault()
 		onValueChange(false);
 	};
+
+	//set Image to use Context
+	const  {imageUrl, setImageUrl} = useContext(ImageContext);
 
 
 
@@ -111,9 +116,27 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 
 	// the Image data change
 	const [avatarUrl, setAvatarUrl] = useState('');
+
 	useEffect(() => {
 
-		console.log("vchaggy", avatarUrl)
+		console.log("whatss", avatarUrl)
+		
+
+		if (avatarUrl) {
+
+			// const urlObj = new URL(avatarUrl);
+			// console.log("goneDta", urlObj)
+			// const paths = urlObj.pathname.split('/');
+			// const id = paths[paths.length - 1];
+			// console.log("okkwell", id)
+			localStorage.setItem('setIdTo', avatarUrl);
+			setImageUrl?.(avatarUrl);
+			window.dispatchEvent(new Event('storage'));
+
+
+		}
+
+
 
 
 	}, [avatarUrl])
@@ -141,19 +164,19 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 
 
 	const handleDataToImage = (data: any) => {
+
+		console.log("newProfilTo", data)
+
 		setAvatarUrl(data);
 	}
 
-	const handleCancel = () => {
-		setAvatarUrl('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Fpremium-vector%2Fhuman-symbol-3d-icon-user-business-symbology-website-profile_23479592.htm&psig=AOvVaw2ssAZMXipyLr95QYKy20DR&ust=1683880650016000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKD6t7Lu7P4CFQAAAAAdAAAAABAT');
-	};
+
 
 	const handleRemove = () => {
 
 		setAvatarUrl('');
 
 	};
-
 
 
 	//select2 pro
@@ -467,31 +490,29 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 		"EUR - Euro"
 	]
 
-	const handleChildDataCountry = (data:any) => {
-		console.log("veriiokk",data)
-	  }
+	const handleChildDataCountry = (data: any) => {
+		console.log("veriiokk", data)
+	}
 
-	  const handleChildDataGender = (data:any) => {
-		console.log("veriiokk",data)
-	  }
+	const handleChildDataGender = (data: any) => {
+		console.log("veriiokk", data)
+	}
 
-	  const handleChildDataLanguage = (data:any) => {
-		console.log("veriiokk",data)
-	  }
-	  const handleChildDataTimeZone = (data:any) => {
-		console.log("veriiokk",data)
-	  }
+	const handleChildDataLanguage = (data: any) => {
+		console.log("veriiokk", data)
+	}
+	const handleChildDataTimeZone = (data: any) => {
+		console.log("veriiokk", data)
+	}
 
-	  const handleChildDataCurrency = (data:any) => {
-		console.log("veriiokk",data)
-	  }
-
-	  
+	const handleChildDataCurrency = (data: any) => {
+		console.log("veriiokk", data)
+	}
 
 
 
 
-	  const intl = useIntl()
+	const intl = useIntl()
 
 
 
@@ -507,8 +528,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 				<div className="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
 					<div className="card-title m-0">
 						<h3 className="fw-bold m-0">
-						{intl.formatMessage({id: 'USER.MENU.SIDEBAR.SETTING'})}
-							</h3>
+							{intl.formatMessage({ id: 'USER.MENU.SIDEBAR.SETTING' })}
+						</h3>
 					</div>
 				</div>
 
@@ -517,8 +538,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 						<div className="card-body border-top p-9">
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label fw-semibold fs-6">
-								{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.PROFIL'})}
-									 </label>
+									{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.PROFIL' })}
+								</label>
 								{/* the ways to send data */}
 
 								<div className="col-lg-8">
@@ -550,16 +571,16 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 										}
 									</div>
 									<div className="form-text">
-									{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.IMAGE_REQUIRED'})}
-										</div>
+										{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.IMAGE_REQUIRED' })}
+									</div>
 								</div>
 							</div>
 
 
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label required fw-semibold fs-6">
-									{intl.formatMessage({id: 'EXPERT.PROFIL_INFO.CONTENT.NAME_SURNAME'})}
-									</label>
+									{intl.formatMessage({ id: 'EXPERT.PROFIL_INFO.CONTENT.NAME_SURNAME' })}
+								</label>
 								<div className="col-lg-8">
 									<div className="row">
 										<div className="col-lg-6 fv-row">
@@ -577,8 +598,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label required fw-semibold fs-6">
-								{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.BIRTHDATE'})}
-									</label>
+									{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.BIRTHDATE' })}
+								</label>
 
 								<div className='col-lg-8 fv-row'>
 									<MetronicDatePicker label="Birth Date" onChange={handleDateChange} value={selectedDate} language="tr" />
@@ -592,8 +613,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label fw-semibold fs-6">
 									<span className="required">
-									{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.NATIONALITY'})}
-										</span>
+										{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.NATIONALITY' })}
+									</span>
 									<span className="ms-1" data-bs-toggle="tooltip" title="Country of origination">
 										<i className="ki-duotone ki-information-5 text-gray-500 fs-6">
 											<span className="path1"></span>
@@ -604,22 +625,22 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 								</label>
 
 								<div className="col-lg-8 fv-row">
-									<DropdownComponent options={countries} updateDataChange={handleChildDataCountry}  selectedOptionChoose=""/>
+									<DropdownComponent options={countries} updateDataChange={handleChildDataCountry} selectedOptionChoose="" />
 								</div>
 							</div>
 
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label required fw-semibold fs-6">
-									{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.IDENTITY'})}
+									{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.IDENTITY' })}
 
-									</label>
+								</label>
 								<div className="col-lg-8">
 									<div className="row">
 										<div className="col-lg-6 fv-row">
 											<input type="text" name="fname" className="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Ulusal Kimlik" value="994584395" />
 										</div>
 										<div className="col-lg-6 fv-row">
-											<DropdownWithoutSearch options={cinsiyetOption}  updateData={handleChildDataGender}/>
+											<DropdownWithoutSearch options={cinsiyetOption} updateData={handleChildDataGender} />
 
 										</div>
 									</div>
@@ -631,8 +652,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label fw-semibold fs-6">
 									<span className="required">
-									{intl.formatMessage({id: 'EXPERT.PROFIL_INFO.CONTENT.PHONE_NUMBER'})}
-										</span>
+										{intl.formatMessage({ id: 'EXPERT.PROFIL_INFO.CONTENT.PHONE_NUMBER' })}
+									</span>
 									<span className="ms-1" data-bs-toggle="tooltip" title="Phone number must be active">
 										<i className="ki-duotone ki-information-5 text-gray-500 fs-6">
 											<span className="path1"></span>
@@ -652,24 +673,24 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label fw-semibold fs-6">
-								{intl.formatMessage({id: 'EXPERT.PROFIL_INFO.CONTENT.EMAIL'})}
-									</label>
+									{intl.formatMessage({ id: 'EXPERT.PROFIL_INFO.CONTENT.EMAIL' })}
+								</label>
 								<div className="col-lg-8 fv-row">
 									<input type="text" name="website" className="form-control form-control-lg form-control-solid" placeholder="Yeni E-posta" value="abdf@gmail.com" />
 								</div>
 							</div>
 
 							<div className="row mb-6">
-								<label className="col-lg-4 col-form-label required fw-semibold fs-6"> 
-								{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.LANGUAGE'})}
+								<label className="col-lg-4 col-form-label required fw-semibold fs-6">
+									{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.LANGUAGE' })}
 								</label>
 								<div className="col-lg-8 fv-row">
 
-									<DropdownComponent options={langToApply}  updateDataChange={handleChildDataLanguage}  selectedOptionChoose=""/>
+									<DropdownComponent options={langToApply} updateDataChange={handleChildDataLanguage} selectedOptionChoose="" />
 
 									<div className="form-text">
-									{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.SEANSLANGUAGE'})}
-										</div>
+										{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.SEANSLANGUAGE' })}
+									</div>
 								</div>
 							</div>
 
@@ -677,7 +698,7 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label required fw-semibold fs-6"> Saat Dilimi </label>
 								<div className="col-lg-8 fv-row">
-									<DropdownComponent options={timeZoneApply}  updateDataChange={handleChildDataTimeZone}  selectedOptionChoose=""/>
+									<DropdownComponent options={timeZoneApply} updateDataChange={handleChildDataTimeZone} selectedOptionChoose="" />
 
 								</div>
 							</div>
@@ -685,31 +706,31 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label fw-semibold fs-6">
-								{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.CURRENCY'})}
-									</label>
+									{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.CURRENCY' })}
+								</label>
 								<div className="col-lg-8 fv-row">
-									<DropdownComponent options={curencyToApply}  updateDataChange={handleChildDataCurrency} selectedOptionChoose=""/>
+									<DropdownComponent options={curencyToApply} updateDataChange={handleChildDataCurrency} selectedOptionChoose="" />
 
 								</div>
 							</div>
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label required fw-semibold fs-6">
-								{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.CONTACT_CANAL'})}
-									</label>
+									{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.CONTACT_CANAL' })}
+								</label>
 								<div className="col-lg-8 fv-row">
 									<div className="d-flex align-items-center mt-3">
 										<label className="form-check form-check-custom form-check-inline form-check-solid me-5">
 											<input className="form-check-input" name="communication[]" type="checkbox" value="1" />
 											<span className="fw-semibold ps-2 fs-6">
 
-											{intl.formatMessage({id: 'EXPERT.PROFIL_INFO.CONTENT.EMAIL'})}
+												{intl.formatMessage({ id: 'EXPERT.PROFIL_INFO.CONTENT.EMAIL' })}
 											</span>
 										</label>
 										<label className="form-check form-check-custom form-check-inline form-check-solid">
 											<input className="form-check-input" name="communication[]" type="checkbox" value="2" />
 											<span className="fw-semibold ps-2 fs-6">
-											{intl.formatMessage({id: 'EXPERT.PROFIL_INFO.CONTENT.PHONE_NUMBER_SIMPLE'})}
-												</span>
+												{intl.formatMessage({ id: 'EXPERT.PROFIL_INFO.CONTENT.PHONE_NUMBER_SIMPLE' })}
+											</span>
 										</label>
 									</div>
 								</div>
@@ -718,8 +739,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 
 							<div className="row mb-0">
 								<label className="col-lg-4 col-form-label fw-semibold fs-6">
-									{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.ACCOUNT_STATUS'})}
-									</label>
+									{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.ACCOUNT_STATUS' })}
+								</label>
 
 								<div className="col-lg-8 d-flex align-items-center">
 									<div className="form-check form-check-solid form-switch form-check-custom fv-row">
@@ -732,8 +753,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 
 							<div className="row mb-6">
 								<label className="col-lg-4 col-form-label fw-semibold fs-6">
-								{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.SUBSCRIPTION_TYPE'})}
-									</label>
+									{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.SUBSCRIPTION_TYPE' })}
+								</label>
 								<div className="col-lg-8 fv-row">
 									<input type="text" name="website" className="form-control form-control-lg form-control-solid" value="Mega Kişisel" readOnly />
 								</div>
@@ -742,8 +763,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 
 							<div className="row mb-0">
 								<label className="col-lg-4 col-form-label fw-semibold fs-6">
-									{intl.formatMessage({id: 'EXPERT.PROFIL_INFO.CONTENT.ACCOUNT_TYPE'})}
-									</label>
+									{intl.formatMessage({ id: 'EXPERT.PROFIL_INFO.CONTENT.ACCOUNT_TYPE' })}
+								</label>
 
 								<div className="col-lg-8  align-items-center">
 
@@ -751,8 +772,8 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 										<li className="nav-item">
 											<a className="nav-link text-active-primary d-flex align-items-center pb-4 active" data-bs-toggle="tab" href="#kt_contact_view_general">
 												<i className="ki-duotone ki-home fs-4 me-1"></i>
-												{intl.formatMessage({id: 'EXPERT.PROFIL_INFO.CONTENT.ACCOUNT_TYPE_NAME_COOPERATE'})}
-												</a>
+												{intl.formatMessage({ id: 'EXPERT.PROFIL_INFO.CONTENT.ACCOUNT_TYPE_NAME_COOPERATE' })}
+											</a>
 										</li>
 										<li className="nav-item">
 											<a className="nav-link text-active-primary d-flex align-items-center pb-4" data-bs-toggle="tab" href="#kt_contact_view_meetings">
@@ -764,7 +785,7 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 													<span className="path4"></span>
 													<span className="path5"></span>
 												</i>
-												{intl.formatMessage({id: 'EXPERT.PROFIL_INFO.CONTENT.ACCOUNT_TYPE_NAME_PERSONILIZE'})}
+												{intl.formatMessage({ id: 'EXPERT.PROFIL_INFO.CONTENT.ACCOUNT_TYPE_NAME_PERSONILIZE' })}
 											</a>
 										</li>
 
@@ -784,7 +805,7 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 									<div className="tab-content" id="">
 										<div className="tab-pane fade show active" id="kt_contact_view_general" role="tabpanel">
 											<div className="col-lg-8 fv-row">
-												<input type="text" name="website" className="form-control form-control-lg form-control-solid" value="" placeholder={intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.COMPANY_WRITE'})} />
+												<input type="text" name="website" className="form-control form-control-lg form-control-solid" value="" placeholder={intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.COMPANY_WRITE' })} />
 											</div>
 										</div>
 									</div>
@@ -796,11 +817,11 @@ const FeedsWidget3: React.FC<Props> = ({ className, onValueChange }) => {
 						<div className="card-footer d-flex justify-content-end py-6 px-9">
 
 							<button type="reset" className="btn btn-light btn-active-light-primary me-2" onClick={(e) => handleChange(e)} >
-								{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.DISCARD'})}
-								</button>
+								{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.DISCARD' })}
+							</button>
 							<button type="submit" className="btn btn-primary" id="kt_account_profile_details_submit">
-								{intl.formatMessage({id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.REGISTER'})}
-								</button>
+								{intl.formatMessage({ id: 'EXPERT.ACCOUNT_SETTINGS.CONTENT.REGISTER' })}
+							</button>
 
 						</div>
 					</form>

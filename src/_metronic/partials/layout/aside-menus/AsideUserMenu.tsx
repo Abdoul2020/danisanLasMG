@@ -1,20 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC} from 'react'
-import {useAuth} from '../../../../app/modules/auth'
-import {KTIcon, toAbsoluteUrl} from '../../../helpers'
-import {UserMenu} from '../user-menu/UserMenu';
+import { FC, useContext } from 'react'
+import { useAuth } from '../../../../app/modules/auth'
+import { KTIcon, toAbsoluteUrl } from '../../../helpers'
+import { UserMenu } from '../user-menu/UserMenu';
 import { useSelector, useDispatch } from "react-redux";
-import {ProfilePageComponent} from "../../../../service/Model/expert/profilePage"
+import { ProfilePageComponent } from "../../../../service/Model/expert/profilePage"
+import ImageContext from '../../widgets/feeds/ImageContext';
 
 
-const AsideUserMenu: FC<ProfilePageComponent> = ({userData}) => {
+const AsideUserMenu: FC<ProfilePageComponent> = ({ userData }) => {
 
 
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth()
 
 
   //Profile page get
-  const profileImage= useSelector((state:any)=>state.user_ExpertSlice.pro_base64);
+  const profileImage = useSelector((state: any) => state.user_ExpertSlice.pro_base64);
+
+
+
+  const { imageUrl, setImageUrl } = useContext(ImageContext);
 
 
 
@@ -28,7 +33,19 @@ const AsideUserMenu: FC<ProfilePageComponent> = ({userData}) => {
         <div className='d-flex align-items-center'>
           {/* begin::Avatar */}
           <div className='symbol symbol-circle symbol-40px'>
-            <img src={toAbsoluteUrl(`data:image/png;base64,${profileImage && profileImage!==null ? profileImage :"" }`)} alt='avatar' />
+
+            {
+              imageUrl ? (
+                <img src={imageUrl} alt="" />
+              ) : (
+                <img src={toAbsoluteUrl(`data:image/png;base64,${profileImage && profileImage !== null ? profileImage : ""}`)} alt='avatar' />
+              )
+
+
+
+            }
+
+
           </div>
           {/* end::Avatar */}
           {/* begin::User info */}
@@ -36,7 +53,7 @@ const AsideUserMenu: FC<ProfilePageComponent> = ({userData}) => {
             <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bolder lh-1'>
               {currentUser?.first_name} {currentUser?.first_name}
             </a>
-            <span className='text-muted fw-bold d-block fs-7 lh-1'>  {userData ? userData.expert_name +" "+userData.expert_surname :"" } </span>
+            <span className='text-muted fw-bold d-block fs-7 lh-1'>  {userData ? userData.expert_name + " " + userData.expert_surname : ""} </span>
           </div>
           {/* end::User info */}
         </div>
@@ -60,4 +77,4 @@ const AsideUserMenu: FC<ProfilePageComponent> = ({userData}) => {
   )
 }
 
-export {AsideUserMenu}
+export { AsideUserMenu }

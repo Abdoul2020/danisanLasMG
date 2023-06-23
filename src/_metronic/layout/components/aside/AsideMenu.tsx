@@ -38,12 +38,17 @@ const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
       <div
         id='#kt_aside_menu'
         data-kt-menu='true'
-        className='menu menu-column menu-rounded fw-bold my-auto'
+        className='menu menu-column menu-rounded fw-bold mt-20'
       >
         <AsideMenuMain />
+        
       </div>
     </div>
   )
 }
 
 export {AsideMenu}
+
+
+// margin top to set properly
+// my-auto

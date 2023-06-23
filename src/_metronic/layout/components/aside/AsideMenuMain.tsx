@@ -9,35 +9,63 @@ export function AsideMenuMain() {
 
   return (
     <>
-      <AsideMenuItem
-        to='/dashboard'
-        icon='black-right'
+
+
+
+      <AsideMenuItemWithSub
+        to='/crafted/accounts'
         title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
+        icon='black-right'
+        fontIcon='bi-person'
+      >
+        <AsideMenuItem to='/apps/user-management/users' title={intl.formatMessage({ id: 'MENU.DASHBOARD_ALTSUB' })} hasBullet={true} />
+        <AsideMenuItem to='/apps/user-management/users' title={intl.formatMessage({ id: 'MENU.DASHBOARD_ALTSUBSECOND' })} hasBullet={true} />
+      </AsideMenuItemWithSub>
+
+
+      <AsideMenuItem
+        to='/crafted/pages/profile/projects'
+        icon='black-right'
+        title={intl.formatMessage({ id: 'MENU.DASHBOARD.APPOINTMENT' })}
         fontIcon='bi-app-indicator'
       />
 
-      <AsideMenuItem to='/builder' icon='black-right'
+      <AsideMenuItem to='/crafted/widgets/mixed' icon='black-right'
         title={intl.formatMessage({ id: 'MENU.PAYMENT' })}
         fontIcon='bi-layers' />
 
-      <AsideMenuItem to='/builder' icon='black-right'
-        title={intl.formatMessage({ id: 'MENU.MYCARD' })}
+      <AsideMenuItem to='/crafted/pages/profile/documents' icon='black-right'
+        title={intl.formatMessage({ id: 'MENU.DASHBOARD.CERTIFICATE' })}
+        fontIcon='bi-layers' />
+
+      <AsideMenuItem to='/crafted/pages/profile/documents' icon='black-right'
+        // title={intl.formatMessage({ id: 'MENU.DASHBOARD.ALLCLIENT' })}
+        title="Keşfet"
         fontIcon='bi-layers' />
 
 
 
-      <div className='menu-item '>
+
+      {/* <div className='menu-item '>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
         </div>
-      </div>
-      <AsideMenuItemWithSub
+      </div> */}
+
+      
+
+
+
+
+      {/* <AsideMenuItemWithSub
         to='/crafted/pages'
-        title='Pages'
+        title='Randevularım'
         fontIcon='bi-archive'
         icon='black-right'
+
+      
       >
-        <AsideMenuItemWithSub to='/crafted/pages/profile' title='Profile' hasBullet={true}>
+        <AsideMenuItemWithSub to='/crafted/pages/profile' title='Aldığım' hasBullet={true}>
           <AsideMenuItem to='/crafted/pages/profile/overview' title='Overview' hasBullet={true} />
           <AsideMenuItem to='/crafted/pages/profile/projects' title='Projects' hasBullet={true} />
           <AsideMenuItem to='/crafted/pages/profile/campaigns' title='Campaigns' hasBullet={true} />
@@ -57,22 +85,17 @@ export function AsideMenuMain() {
           />
           <AsideMenuItem to='/crafted/pages/wizards/vertical' title='Vertical' hasBullet={true} />
         </AsideMenuItemWithSub>
-      </AsideMenuItemWithSub>
-      <AsideMenuItemWithSub
-        to='/crafted/accounts'
-        title='Accounts'
-        icon='black-right'
-        fontIcon='bi-person'
-      >
-        <AsideMenuItem to='/crafted/account/overview' title='Overview' hasBullet={true} />
-        <AsideMenuItem to='/crafted/account/settings' title='Settings' hasBullet={true} />
-      </AsideMenuItemWithSub>
-      <AsideMenuItemWithSub to='/error' title='Errors' fontIcon='bi-sticky' icon='black-right'>
+      </AsideMenuItemWithSub> */}
+
+
+      {/* <AsideMenuItemWithSub to='/error' title='Errors' fontIcon='bi-sticky' icon='black-right'>
         <AsideMenuItem to='/error/404' title='Error 404' hasBullet={true} />
         <AsideMenuItem to='/error/500' title='Error 500' hasBullet={true} />
 
-      </AsideMenuItemWithSub>
-      <AsideMenuItemWithSub
+      </AsideMenuItemWithSub> */}
+
+
+      {/* <AsideMenuItemWithSub
         to='/crafted/widgets'
         title='Widgets'
         icon='black-right'
@@ -84,33 +107,40 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/crafted/widgets/mixed' title='Mixed' hasBullet={true} />
         <AsideMenuItem to='/crafted/widgets/tables' title='Tables' hasBullet={true} />
         <AsideMenuItem to='/crafted/widgets/feeds' title='Feeds' hasBullet={true} />
-      </AsideMenuItemWithSub>
-      <div className='menu-item '>
+      </AsideMenuItemWithSub> */}
+
+
+      {/* <div className='menu-item '>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Apps</span>
         </div>
-      </div>
-      <AsideMenuItemWithSub to='/apps/chat' title='Chat' fontIcon='bi-chat-left' icon='black-right'>
+      </div> */}
+
+
+      {/* <AsideMenuItemWithSub to='/apps/chat' title='Chat' fontIcon='bi-chat-left' icon='black-right'>
         <AsideMenuItem to='/apps/chat/private-chat' title='Private Chat' hasBullet={true} />
         <AsideMenuItem to='/apps/chat/group-chat' title='Group Chart' hasBullet={true} />
         <AsideMenuItem to='/apps/chat/drawer-chat' title='Drawer Chart' hasBullet={true} />
-      </AsideMenuItemWithSub>
-      <AsideMenuItem
+      </AsideMenuItemWithSub> */}
+
+
+      {/* <AsideMenuItem
         to='/apps/user-management/users'
         icon='black-right'
         title='User management'
         fontIcon='bi-layers'
-      />
 
+      /> */}
 
-      <div className='menu-item '>
+      {/* 
+      <div className='menu-item hidden'>
         <div className='menu-content'>
           <div className='separator mx-1 my-4'></div>
         </div>
-      </div>
+      </div> */}
 
 
-      <div className='menu-item '>
+      {/* <div className='menu-item hidden'>
         <a
           target='_blank'
           className='menu-link'
@@ -121,7 +151,7 @@ export function AsideMenuMain() {
           </span>
           <span className='menu-title'>Changelog {process.env.REACT_APP_VERSION}</span>
         </a>
-      </div>
+      </div> */}
 
 
     </>

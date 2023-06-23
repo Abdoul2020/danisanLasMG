@@ -108,7 +108,7 @@ const UsersListFilter = () => {
               data-kt-menu-dismiss='true'
               data-kt-user-table-filter='reset'
             >
-              Reset
+              Sıfırla
             </button>
             <button
               disabled={isLoading}
@@ -118,7 +118,7 @@ const UsersListFilter = () => {
               data-kt-menu-dismiss='true'
               data-kt-user-table-filter='filter'
             >
-              Apply
+              Uygula
             </button>
           </div>
           {/* end::Actions */}

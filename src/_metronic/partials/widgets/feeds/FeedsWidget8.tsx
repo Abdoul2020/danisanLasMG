@@ -13,14 +13,15 @@ import { Turkish } from 'flatpickr/dist/l10n/tr.js';
 // import Tagify from "@yaireo/tagify";
 // import '@yaireo/tagify/dist/tagify.css';
 
-import FlatpickrInput from './FlatpickrInput'
+import FlatpickrInput from './FlatpickrInput';
+import CalendarComponent from './CalendarTime'
 
 //import CustomInput from './CustomInput'
 //import Tagify from '@yaireo/tagify';
 import MetronicTagify from './TagifyInput'
 import MetronicTagifyPrivate from "./TagifyOzelData";
 import DropdownWithoutSearch from './DropdownWithoutSearch'
-import {toastify} from "../../../../service/toastify"
+import { toastify } from "../../../../service/toastify"
 
 
 
@@ -445,6 +446,7 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
     //display zaman an close zaman
     const [displayZaman, setDisplayZaman] = useState(true);
+    const [displayCalendar, setDisplayCalendar] = useState(true)
 
 
     //days time picker
@@ -602,7 +604,7 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                                 }
 
                             } else {
-                               
+
                                 // Convert back to HH:MM format before adding to saatTime
                                 newState[indexOfDay][key][0]['saatTime'].splice(i, 0, convertMinutesToTime(giveTimeInMinutes));
                                 setDaysToPrivate(newState);
@@ -654,12 +656,24 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
                     <div className="d-flex flex-column gap-7 gap-lg-10">
                         <div className="d-flex flex-wrap flex-stack gap-5 gap-lg-10">
                             <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-lg-n2 me-auto">
+
+                                <li className="nav-item" onClick={() => { setDisplayZaman(false); setDisplayCalendar(false) }} >
+                                    <a className="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_sales_order_calendar"> Takvimim </a>
+                                </li>
+
                                 <li className="nav-item" onClick={() => setDisplayZaman(true)}>
                                     <a className="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_sales_order_summary"> Zaman Koşullu </a>
                                 </li>
+
                                 <li className="nav-item" onClick={() => setDisplayZaman(false)} >
                                     <a className="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_sales_order_history"> Özel Koşullu </a>
                                 </li>
+
+                                <li className="nav-item" onClick={() => setDisplayZaman(false)} >
+                                    <a className="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_sales_harici"> Harici Takim </a>
+                                </li>
+
+
                             </ul>
                         </div>
 
@@ -795,7 +809,7 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
 
 
-                        <div className='tab-content'>
+                        <div className='tab-content' >
 
                             <div className="tab-pane fade" id="kt_ecommerce_sales_order_history" >
 
@@ -955,7 +969,192 @@ const FeedsWidget8: React.FC<Propss> = ({ className }) => {
 
 
                             </div>
+
                         </div>
+
+
+                        <div className='tab-content'>
+
+                            <div className="tab-pane fade" id="kt_ecommerce_sales_order_calendar" >
+
+                                <CalendarComponent />
+
+                            </div>
+                        </div>
+
+
+                        {/* haricic takvim part */}
+                        <div className='tab-content'  >
+
+                            <div className="tab-pane fade" id="kt_ecommerce_sales_harici" >
+
+                                <div className=" gap-5 gap-lg-10 mb-4" >
+                                    <div>
+                                        <h4 className=" fw-bold text-gray-800 text-xl font-normal mb-0">Özel Koşullu Randevu Oluştur!</h4>
+                                        <p className="fs-6 fw-semibold text-gray-600 pb-4 m-0">
+
+                                            Randevu günlerinizi seçebilir ve seçtiğiniz günler için istediğiniz randevu saatlerini tek tek belirtebilirsiniz.
+                                        </p>
+                                    </div>
+                                </div>
+
+
+
+                                <div className="mb-8">
+                                    <div className='mb-4'>
+                                        <h2 className='fs-6 fw-semibold form-label mb-2 ms-1'>Randevu Günlerini Belirle</h2>
+                                    </div>
+
+
+                                    <div className='w-full'>
+
+                                        <MetronicTagifyPrivate
+                                            value={tagsPrivate}
+                                            onChange={handleTagChangePrivate}
+                                            suggestions={filteredSuggestions}
+                                        />
+
+
+                                    </div>
+
+                                </div>
+
+
+                                <div className='row mb-8'>
+
+                                    <div className='col-xl-5'>
+
+
+                                        <div className='w-full mb-4'>
+
+                                            <h2 className='fs-6 fw-semibold form-label mb-2 ms-1'> Kısa Mola Süresini Belirle  </h2>
+
+                                        </div>
+
+                                        <div className='mt-3'>
+
+                                            <DropdownWithoutSearch options={KMolaSure} updateData={handleKmola} />
+                                        </div>
+
+                                    </div>
+
+                                    <div className='col-xl-5'>
+
+
+
+                                        <div className='w-full mb-4'>
+
+                                            <h2 className='fs-6 fw-semibold form-label mb-2 ms-1'> Randevu Süresini Belirle  </h2>
+
+                                        </div>
+
+                                        <div className='mt-3'>
+
+                                            <DropdownWithoutSearch options={RdevSure} updateData={handleRdevSure} />
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {
+                                    daysToPrivate.length > 0 && (
+
+
+                                        daysToPrivate.map((v: any, i: any) => {
+
+                                            return Object.keys(v).map((key: any) => {
+
+                                                console.log("bUNNEEF", v, "koop", key)
+
+                                                return (
+                                                    <div className='row mb-8 flex  mt-36' >
+
+                                                        <hr />
+
+                                                        <div className='w-full mb-4 mt-5'>
+
+                                                            <h4 className=" fw-bold text-gray-800 text-xl font-normal mb-0"> {key}</h4>
+
+                                                            <p className='fs-6 fw-semibold form-label mb-2 ms-1'>
+
+                                                                {key} günleri için alınabilecek randevu saatlerini giriniz.
+
+                                                            </p>
+                                                        </div>
+
+                                                        {/* choose times to be send */}
+
+                                                        <div className=''>
+
+                                                            {v[key].map((tag: any, index: any) => (
+
+                                                                tag.saatTime.map((e: any, p: any) => (
+
+                                                                    < div key={p} className="form-control form-control-solid tag " onClick={() => { deleteTag(index, e, key) }}>
+                                                                        {e}
+                                                                        < button >
+                                                                            &nbsp;&nbsp;
+                                                                            <i className="fas fa-trash-alt"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                )
+                                                                )
+                                                            )
+                                                            )
+                                                            }
+                                                        </div>
+
+
+
+
+
+                                                        <div className='w-full flex mt-5'>
+                                                            <div className="col-5">
+                                                                <FlatpickrInput value={selectedTime} onChange={handleTimeChange} />
+                                                            </div>
+                                                            &nbsp;&nbsp; &nbsp;
+                                                            <div className=''>
+                                                                <div className="form-group " onClick={() => addTimeforPrivateSettings(v, i, key)}>
+                                                                    <button type="button" className="btn  btn-light-primary flex">
+                                                                        <i className="ki-duotone ki-plus fs-2"></i>
+                                                                        Ekle </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                )
+
+                                            });
+
+
+
+
+
+                                        }).flat()
+
+
+                                    )
+                                }
+
+
+
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+
+
 
                         <div className="card-footer d-flex justify-content-end py-6 px-9">
                             {/* <button type="reset" className="btn btn-light btn-active-light-primary me-2" >İptal</button> */}

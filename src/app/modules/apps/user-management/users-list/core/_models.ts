@@ -22,6 +22,6 @@ export const initialUser: User = {
   avatar: 'avatars/300-6.jpg',
   position: 'Art Director',
   role: 'Administrator',
-  name: '',
-  email: '',
+  name: 'AbdoulKow',
+  email: 'abdoul@gmail.com',
 }
